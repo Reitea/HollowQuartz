@@ -11,6 +11,143 @@ html{
   scroll-behavior: smooth;
 }
 
+.wf-hannari { font-family: "Hannari"; }
+.novel-container{
+  width: 100%;
+  height: 800px;
+  background-color: white;
+  padding: 50px;
+  position: relative;  
+  writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+  -ms-writing-mode: tb-rl;            
+  -moz-writing-mode: vertical-rl;     
+  -webkit-writing-mode: vertical-rl;  
+  -o-writing-mode: vertical-rl;       
+  -ms-writing-mode: vertical-rl;
+  
+width: 100%; /* 幅を100%に設定 */
+max-width: 100%; /* 幅の最大値を100%に設定 */
+overflow-x: scroll; /* 横方向にスクロールバーを表示するように設定 */
+}
+.novel-title{
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2em;
+  font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;
+}
+
+
+#honbun{
+  font-size: 10px;
+  line-height: 2.5rem;
+  height: 100%;
+  width: 100%;
+  padding: 30px 0;
+  float: left;
+  
+  writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+  -ms-writing-mode: tb-rl;            
+  -moz-writing-mode: vertical-rl;     
+  -webkit-writing-mode: vertical-rl;  
+  -o-writing-mode: vertical-rl;       
+  -ms-writing-mode: vertical-rl;
+
+}
+#honbun p{
+  padding: 50px;
+  margin: 0;
+  font-size: 2em;
+  font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;
+}
+.gothic{font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', '游ゴシック', 'Yu Gothic', '游ゴシック体', 'YuGothic', 'Meiryo UI', 'メイリオ', Meiryo, 'ＭＳ ゴシック', 'MS Gothic', sans-serif;}
+.mincho{font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;}
+
+
+.work-container{
+  width: 100%;
+  height: 100%;
+  background-color: #e5f1f0;
+  padding-top: 50px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  padding-bottom: 150px;
+  position: relative;
+}
+.work-title{
+  font-size: 4em;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+.work-novel{
+  width: 400px;
+  height: 200px;
+  background-color: #ffffffcc;
+  top: 0;
+  right: 0;
+  text-align: center;
+  padding: 0px;
+  box-sizing: border-box; /* 追加 */
+  overflow-wrap: break-word; /* 追加 */
+}
+.work-container ul{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+  column-count: 3;
+  padding: 0;
+  margin: 0;
+}
+.work-container li{
+  font-size: 20px;
+  padding: 10px;
+  display: none;
+}
+.work-container li:nth-child(-n+3){
+  display: block;
+}
+.work-container ul li:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+  background-color: #ffffffcc;
+  text-decoration: none;
+}
+button.moreDisp{
+  cursor: pointer;
+  width: 120px;
+  position: absolute;
+  right: 10%;
+  margin: 20px auto;
+  display: block;
+  background-color: #666;
+  color: #fff;
+  padding:10px 15px;
+  border: none;
+  outline: 0;
+  transition: .5s;
+  -erbkit-transition: .5s;
+}
+button.moreDisp:hover{
+  background-color: #444;
+  scale: 1.1;
+  border-radius: 20px;
+}
+
+.work-novel h1{
+font-size: 20px;
+color: #000;
+}
+
 .dress{
 font-size: 2vw;
 position: absolute;
@@ -101,9 +238,10 @@ a {
 
 .intro {
   z-index: 2;
-  height : 300px;
+  height : 320px;
   position: relative;
   padding-top: 30px;
+  padding-bottom: 30px;
   padding-left: 5vw;
   font-family: 'Times New Roman', Times, serif;
   background-color: rgba(236, 214, 158, 0.7);
@@ -411,7 +549,7 @@ img:hover {
 main {
   flex-wrap: wrap;
   padding-top: 0px;
-  margin-top: 150px;
+  margin-top: 50px;
   height: 8800px;
 }
 

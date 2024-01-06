@@ -53,8 +53,73 @@ document.addEventListener('DOMContentLoaded', () => {
     targetElements.forEach(target => {
         fadeInObserver.observe(target);
     });
+
+      // 現在のページがnovel.htmlであるかを確認
+      if (window.location.pathname.includes("novel.html")) {
+        console.log(Path);
+        const text = document.querySelector("#honbun p")
+        const title = document.querySelector(".novel-title h1")
+        const wordcount = document.querySelector("h5");
+        // novel.htmlが読み込まれたときに実行したいJavaScriptのコードを書く
+        console.log('novel.htmlが読み込まれました！');
+        const xhr = new XMLHttpRequest();
+        const urlParams = new URLSearchParams(window.location.search);
+        Path = urlParams.get('title');
+        title.textContent = "「"+Path+"」";
+        const filePath = Path + ".txt";
+        xhr.open("GET", filePath, true);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            // ファイルの中身を取得して表示
+            const fileContent = xhr.responseText;
+            console.log(fileContent);
+            text.textContent = fileContent;
+            wordcount.textContent += fileContent.length+"文字";
+          }
+
+        };
+        xhr.send();
+      }
+
 });
 
+
+
+let Path;
+
+// リンクがクリックされたときに実行される関数
+function setPath(event) {
+  // イベントのデフォルト動作を防ぐ（新しいページへの遷移をキャンセル）
+  event.preventDefault();
+  const h1Text = event.currentTarget.querySelector('h1').textContent;
+  // クリックされたリンク内のh1要素のテキストを取得し、Pathに代入
+  // ローカルストレージにデータを保存
+    window.location.href = 'novel.html?title=' + encodeURIComponent(h1Text);
+   // 1000ミリ秒（1秒）待機する例
+  // Pathの値をコンソールに表示（確認用）
+}
+
+
+var showOnlyThree = true;
+
+function toggleItems() {
+  var liElements = document.querySelectorAll('.work-container li');
+  var button = document.querySelector('.moreDisp');
+  liElements.forEach(function(li, index) {
+    if (showOnlyThree) {
+      console.log('showing item ' + index)
+      li.style.display = 'block';
+      button.innerHTML = '閉じる';
+    } else {
+      console.log('hiding item ' + index)
+      button.innerHTML = 'もっと見る';
+      if (index > 2)
+      li.style.display = 'none';
+    }
+  });
+
+  showOnlyThree = !showOnlyThree;
+}
 // 文章データを格納
 
 const textData = [
@@ -141,6 +206,8 @@ function updateText(paragraphs, newTextArray) {
 }
 
 // ボタンのクリックイベントリスナーを追加
+if (window.location.pathname.includes("index.html")) {
+
 document.getElementById('changeText').addEventListener('click', () => {
     // 文章を切り替える
     console.log('ボタンがクリックされました。');
@@ -148,6 +215,7 @@ document.getElementById('changeText').addEventListener('click', () => {
     currentTextIndex = (currentTextIndex + 1) % textData.length;
     updateText(paragraphs, textData[currentTextIndex]);
 });
+
 
 // 初期状態の文章を設定
 
@@ -227,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
+}
   document.addEventListener("DOMContentLoaded", function() {
     var moreButtons = document.querySelectorAll(".more");
   
@@ -284,7 +352,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 100 * index);
     });
   }
-
 
 
 
