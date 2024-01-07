@@ -1150,6 +1150,13 @@ font-family: "さわらび明朝", "Noto Serif Japanese", serif;
   font-size: 5vw;
   font-family: 'Times New Roman', Times, serif;
 }
+footer{
+  height: 10vh;
+  background-color: rgba(52, 49, 238, 0.753);
+  text-align: center;
+align-items: center;
+position: relative;
+}
 .work-title{
   font-size: 10vw;
   padding-left: 3vw;
@@ -1195,6 +1202,15 @@ font-family: "さわらび明朝", "Noto Serif Japanese", serif;
 #honbun p{
   padding: 0px;
   position: relative;
+}
+.extra h1{
+  font-size: 10vw;
+}
+.extra{
+  padding: 10px;
+}
+table{
+  font-size: 3vw;
 }
   .extra{
     width: 100%;
