@@ -102,21 +102,25 @@ function setPath(event) {
 
 var showOnlyThree = true;
 
-function toggleItems() {
-  var liElements = document.querySelectorAll('.work-container li');
-  var button = document.querySelector('.moreDisp');
+function toggleItems(containerId) {
+  var container = document.getElementById(containerId);
+  var liElements = container.querySelectorAll('li');
+  var button = container.querySelector('.moreDisp');
   liElements.forEach(function(li, index) {
-    if (showOnlyThree) {
+    if (button.innerHTML === 'もっと見る') {
       console.log('showing item ' + index)
       li.style.display = 'block';
-      button.innerHTML = '閉じる';
     } else {
       console.log('hiding item ' + index)
-      button.innerHTML = 'もっと見る';
       if (index > 2)
       li.style.display = 'none';
     }
   });
+  if(button.innerHTML === '閉じる') {
+    button.innerHTML = 'もっと見る';
+  }else{
+    button.innerHTML = '閉じる';
+  }
 
   showOnlyThree = !showOnlyThree;
 }
@@ -125,22 +129,22 @@ function toggleItems() {
 const textData = [
 
     [
-      "「内緒、ですよ」",
-      "「だからアレは、呪滓」",
-      "「では、また逢う日まで」",
-      "「輪廻転生？観念に魂があるっていうのか」",
-      "「どうして殺さぬのだ。速く殺さぬか。そやつは罪人なのだぞ」",
-      "「ぽよーん」",
-      "「なら、もう、いいか」",
-      "「役者が揃わないとドラマは始まらないんだ」",
-      "「借りたら返さなきゃだよ」",
-      "「私は罪など犯していないさ」",
-      "「あると思えば」",
-      "「夜更かしでもしていたんですか？」",
-      "「向上心を、持ちなさい。君ならもっと上も目指せます」",
-      "「夢は趣味でいい。ロックはポップでいい」",
-      "「だけどまァ、せめてゆっくり来てくれよ」",
-      "「煙草、一本くれませんか」"
+      "嘘は苦手だ",
+      "ここは星のないソラ",
+      "雨の降る夜に、傘を差さず",
+      "「いい気はしないね、ひとごろし」",
+      "その航路に意味はない、その情動に価値はない",
+      "醒める夢",
+      "跳ねた心に火が灯る",
+      "何かをすれば好転する、なんてのは幻想だ。",
+      "影に呑まれそうな足は前へと",
+      "ここにはきっと何もない",
+      "煩悩がお釈迦になった！",
+      "知らないことは幸せなこと",
+      "とっくに壊れたガラクタを未だ抱いて生きている。",
+      "最善は尽くした、そのはずである",
+      "震える指、途切れる呼吸、見据えた瞳孔。",
+      "舌触りに不快感"
         // ...
     ],
     [
@@ -162,22 +166,22 @@ const textData = [
         "「恥ずかしい話、甘えてたんだよ」"
     ],
         [
-          "「世界は案外きみをきらってないよ」",
-          "「僕は無神論者ですから」",
-          "「ええ。命の質も下がっていい気分ですよ」",
-          "「少女が空を晴らすんだ」",
-          "「不老不死(LOVE)になって死ぬことだ」",
-          "「がっかりだ」",
-          "「民を悪魔から救うのだ」",
-          "「アナタなら行けますよ。私が保証しますだって──優しいですから」",
+          "「別れはいつか訪れるもの」",
+          "「またね、にも終わりがくるでしょう？」",
+          "「いやあ。やっぱり駄目だろ、君」",
+          "「そんな些事」",
+          "「なんてこった、終わりだね」",
+          "「どっと疲れたよ。眠たいな」",
+          "「いや、そこは諦めないで欲しいけど」",
+          "「優しさとかいう自己陶酔ね」",
           "「ピンポン正解！」",
-          "「ほら理不尽が逃げるぞ、蹴飛ばせ、蹴飛ばせ」",
-          "「もう、大学二年生なのか」",
+          "「別に、どうも」",
+          "「何もしなければ、よかったんだ」",
           "「イカれてんなぁ？！」",
-          "「'――Albus Dumbledore'。そうだね？」",
-          "「やい！飛び降りろ！それいけ」",
-          "「好きにやってくれ(Fuck with that)」",
-          "「私は罪など犯していないさ」"
+          "「あ、そういうのいいんで」",
+          "「人困らせて楽しいか？」",
+          "「黙って帰って寝てどうぞ」",
+          "「惜しい。一手差でボクの勝ちだ」"
   ]
 ];
 

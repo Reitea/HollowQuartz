@@ -20,7 +20,7 @@
             <ul>
                 <li><a href="index.html#">Introduction</a></li>
                 <li><a href="works.html"><div class = "here"></div>Works</a></li>
-                <li><a href="Twitter.html">Twitter</a></li>
+                <li><a target = "_blank" href="https://twitter.com/EX65002">Twitter</a></li>
                 <li><a target="_blank " href="https://yoichi-sousaku.booth.pm/">Booth</a></li>
                 <li><a href="Extra.html">Extra</a></li>
             </ul>
@@ -32,27 +32,33 @@
 <body style="height: 100%; position:relative">
     <main style="height: 100%; position:relative">
 
-        <div class="work-container">
+        <div class="work-container" id = "container1">
             <h1 class ="work-title">小説置き場</h1>
             <ul>
-                <a href = "novel.html" onclick="setPath(event)"><li class = "work-novel"><h1>命を編んでよメヌエット</h1></li></a>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
-                <li class = "work-novel"><h1>命を編んでよメヌエット</h1></li>
+                <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>命を編んでよメヌエット</h1><h4>始まりと終わり。悲しみと納得の話。</h4></li></a>
+                <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>明日に起きたら</h1><h4>割り切ることと生きること。<br>正しいことは良いことか？　間違うことは悪なのか。</h4></li></a>
+                <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>空想と君と僕と実在</h1><h4>誰もいない暗がりの夜。迷いに満ちる心の器。<br>「空想」なんて成り立つの？</h4></li></a>
+                <li class = "work-novel"><h1>題名未定</h1><h4>CommingSoon……？</h4></li>
             </ul>
-            <button onclick="toggleItems()" class = "moreDisp">もっと見る</button>
+            <button onclick="toggleItems('container1')" class = "moreDisp">もっと見る</button>
+        </div>
 
-
+        <div class="work-container" id = "container2">
+            <h1 class ="work-title">二次創作リンク</h1>
+            <ul>
+                <li class = "work-novel"><a target = "_blank" href="https://www.pixiv.net/novel/show.php?id=17175694"><h1>ナイスネイチャの寂寥</h1><h4>ウマ娘二次創作。Pixivへのリンクです。</h4></li></a>
+                <li class = "work-novel"><a target = "_blank" href="https://www.pixiv.net/novel/show.php?id=17841458"><h1 style="font-size: 110%;">一歩、あなたの方へと踏み出して</h1><h4>ウマ娘二次創作。Pixivへのリンクです。</h4></li></a>
+                <li class = "work-novel"><a target = "_blank" href="https://www.pixiv.net/novel/show.php?id=18156922"><h1>あの夏の音を待ちかねて</h1><h4>ウマ娘二次創作。Pixivへのリンクです。</h4></li></a>
+                <li class = "work-novel"><a target = "_blank" href="https://www.pixiv.net/novel/show.php?id=18601614"><h1>あるいは忘郷、墓参り</h1><h4>ウマ娘二次創作。Pixivへのリンクです。</h4></li></a>
+                <li class = "work-novel"><a target = "_blank" href="https://www.pixiv.net/novel/show.php?id=19687205"><h1>水平線に背を向けた</h1><h4>ウマ娘二次創作。Pixivへのリンクです。</h4></li></a>
+            </ul>
+            <button onclick="toggleItems('container2')" class = "moreDisp">もっと見る</button>
         </div>
     </main>
 
     <footer>
-        <div class="footer-logo"><a href="#">文塵ト淀</a></div>
-        <p style="font-size: 10px;top:15%; position: relative;">©文塵ト淀. 2023.</p>
+        <div class="footer-logo"><a href="#">玻璃の虚</a></div>
+        <p style="font-size: 10px;top:15%; position: relative;">©玻璃の虚. 2023.</p>
     </footer>
 
 

@@ -10,6 +10,9 @@ position: relative;
 html{
   scroll-behavior: smooth;
 }
+rt{
+  font-size: 25%;
+}
 
 .wf-hannari { font-family: "Hannari"; }
 .novel-container{
@@ -76,10 +79,10 @@ overflow-x: scroll; /* 横方向にスクロールバーを表示するように
   width: 100%;
   height: 100%;
   background-color: #e5f1f0;
-  padding-top: 50px;
+  padding-top: 20px;
   padding-left: 5vw;
   padding-right: 5vw;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
   position: relative;
 }
 .work-title{
@@ -92,11 +95,25 @@ overflow-x: scroll; /* 横方向にスクロールバーを表示するように
   height: 200px;
   background-color: #ffffffcc;
   top: 0;
+  color: #000;
   right: 0;
-  text-align: center;
   padding: 0px;
   box-sizing: border-box; /* 追加 */
   overflow-wrap: break-word; /* 追加 */
+}
+.work-novel h1{
+  font-size: 130%;
+  color: #000;
+  margin:0;
+  padding-top: 10px;
+  }
+.work-novel h4{
+  height: 50%;
+  width: 100%;
+  padding-top: 5%;
+  font-size: 70%;
+  line-height: 1.5em;
+  margin: 0;
 }
 .work-container ul{
   display: flex;
@@ -113,9 +130,15 @@ overflow-x: scroll; /* 横方向にスクロールバーを表示するように
   padding: 10px;
   display: none;
 }
-.work-container li:nth-child(-n+3){
+.work-container#container1 li:nth-child(-n+3) {
+  display: block;
+}.work-container#container2 li:nth-child(-n + 3) {
   display: block;
 }
+
+
+
+
 .work-container ul li:hover{
   cursor: pointer;
   transform: scale(1.05);
@@ -143,10 +166,7 @@ button.moreDisp:hover{
   border-radius: 20px;
 }
 
-.work-novel h1{
-font-size: 20px;
-color: #000;
-}
+
 
 .dress{
 font-size: 2vw;
@@ -238,7 +258,7 @@ a {
 
 .intro {
   z-index: 2;
-  height : 320px;
+  height : 100%;
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
@@ -248,10 +268,11 @@ a {
 }
 
 .intro h1 {
+  width: 78%;
   font-size: 1.5rem;
   font-family: 'Times New Roman', Times, serif;
   opacity: 0;
-  padding-left: 10vw;
+  margin-left: 10vw;
 }
 
 .intro img {
@@ -544,6 +565,16 @@ img:hover {
 
 .title span:nth-child(20) {
   transition-delay: 1.14s;
+}
+.title span:nth-child(21) {
+  transition-delay: 1.20s;
+}
+
+.ttl_line1 {
+  font-weight: bold;
+  border-left: 5px solid #4c9ac0;
+  border-bottom: 2px dashed #B4B4B4;
+  padding: 0.25em 0 0.3em 0.5em;
 }
 
 main {
@@ -1118,16 +1149,6 @@ font-family: "さわらび明朝", "Noto Serif Japanese", serif;
   margin-left: 10%;
   font-size: 5vw;
   font-family: 'Times New Roman', Times, serif;
-}
-.intro {
-  z-index: 2;
-  height : 250px;
-  position: relative;
-  padding-top: 30px;
-  padding-left: 5vw;
-  padding-right:4vw;
-  font-family: 'Times New Roman', Times, serif;
-  background-color: rgba(236, 214, 158, 0.7);
 }
   .extra{
     width: 100%;
