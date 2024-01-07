@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var startPosition = window.pageYOffset;
         var distance = targetPosition - startPosition;
         var startTime = null;
-        var scrollDuration = 0.01; // スクロールにかかる時間をミリ秒単位で定義
+        var scrollDuration = 5; // スクロールにかかる時間をミリ秒単位で定義
 
         function animation(currentTime) {
           if (startTime === null) startTime = currentTime;
@@ -360,8 +360,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   var textarea = $('.term');
-  var typingSpeed = 25; // Typing speed in milliseconds
-  var scrollSpeed = 0.00000001; // Scroll speed factor
+  var typingSpeed = 1; // Typing speed in milliseconds
+  var scrollSpeed = 0.000000000000000000001; // Scroll speed factor
   var text = 'sh Bunjin_toYodo.sh';
   var animationExecuted = false;
   var i = 0;
@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function feedbacker() {
     var mynus=0;
     
-    if(k==1){mynus=1; scrollSpeed=15;}else{mynus=0}
+    if(k==1){mynus=1; scrollSpeed=3;}else{mynus=0}
     for(var j = 0; j < 4 - mynus && i+1<output[k].length; j++) {
       i++;
       textarea.append("[" + count / 500 + "] " + output[k][i] + "<br>");
