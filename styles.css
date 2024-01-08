@@ -1291,7 +1291,8 @@ font-family: "さわらび明朝", "Noto Serif Japanese", serif;
   font-size: 3vw;
 }
 .novel-container{
-  height: 300px;
+  height: 550px;
+  width: 100%;
   padding: 10px;
 }
 #honbun{
@@ -1311,6 +1312,7 @@ font-family: "さわらび明朝", "Noto Serif Japanese", serif;
   -ms-writing-mode: vertical-rl;
 }
 #honbun p{
+  font-size: 15px;
   padding: 0px;
   position: relative;
 }
@@ -1620,7 +1622,7 @@ pre {
 .novel p {
   position: absolute;
   writing-mode: vertical-rl;
-  font-size: 13px;
+  font-size: 11px;
   font-family: "さわらび明朝", "Noto Serif Japanese", serif;
 }
 .extra{
