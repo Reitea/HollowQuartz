@@ -1,5 +1,5 @@
 var textarea = $('.term');
-var speed = 50; //Writing speed in milliseconds
+var speed = 5; //Writing speed in milliseconds
 var text = 'sh Bunjin_toYodo.sh';
 
 var i = 0;

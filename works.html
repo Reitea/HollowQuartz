@@ -11,19 +11,27 @@
 
     <title>玻璃の虚</title>
     <header style="cursor: pointer;" id="header-text" onclick="bounceAnimation()">
+        
         <span>玻</span>
         <span>璃</span>
         <span>の</span>
         <span>虚</span>
-
+        
         <div class="container">
-            <ul>
+            <input type="checkbox" name="navToggle" id="navToggle" class="nav-toggle">
+            <!-- ハンバーガーメニューのアイコン -->
+            <label for="navToggle" class="btn-burger">
+               <div class="icon"></div>
+            </label>
+            <nav class = "nav">
+            <ul class="nav-list">
                 <li><a href="index.html#">Introduction</a></li>
-                <li><a href="works.html"><div class = "here"></div>Works</a></li>
-                <li><a target = "_blank" href="https://twitter.com/EX65002">Twitter</a></li>
+                <li><a href="works.html"><div class="here"></div>Works</a></li>
+                <li><a href="Twitter.html">Twitter</a></li>
                 <li><a target="_blank " href="https://yoichi-sousaku.booth.pm/">Booth</a></li>
                 <li><a href="Extra.html">Extra</a></li>
             </ul>
+            </nav>
         </div>
     </header>
 
@@ -37,7 +45,7 @@
             <ul>
                 <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>命を編んでよメヌエット</h1><h4>始まりと終わり。悲しみと納得の話。</h4></li></a>
                 <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>明日に起きたら</h1><h4>割り切ることと生きること。<br>正しいことは良いことか？　間違うことは悪なのか。</h4></li></a>
-                <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>空想と君と僕と実在</h1><h4>誰もいない暗がりの夜。迷いに満ちる心の器。<br>「空想」なんて成り立つの？</h4></li></a>
+                <li class = "work-novel"><a href = "novel.html" onclick="setPath(event)"><h1>空想と僕と君と実在</h1><h4>誰もいない暗がりの夜。迷いに満ちる心の器。<br>「空想」なんて成り立つの？</h4></li></a>
                 <li class = "work-novel"><h1>題名未定</h1><h4>CommingSoon……？</h4></li>
             </ul>
             <button onclick="toggleItems('container1')" class = "moreDisp">もっと見る</button>
