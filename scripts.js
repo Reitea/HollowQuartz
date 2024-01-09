@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(fileContent);
         const br = document.createElement("br");
-        const rt = document.createElement("rt");
         for (let i = 0; i < fileContent.length; i++) {
           const charNode = document.createTextNode(fileContent[i]);
 
@@ -94,15 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
             rb.appendChild(rt);
             text.appendChild(rb);
           }
-          if (fileContent[i] === "$") {
-            text.appendChild(br);
-          } else {
-            /*
-            const charNode = document.createTextNode(fileContent[i]);
-            text.appendChild(charNode);
-            console.log(fileContent[i]);*/
-          }
         }
+        text.appendChild(document.createElement("br"));
+        text.appendChild(document.createElement("br"));
+        text.appendChild(document.createElement("br"));
 
         text.textContent
         wordcount.textContent += text.textContent.length + "文字";
