@@ -44,6 +44,7 @@ rt {
   max-width: 100%;
   /* 幅の最大値を100%に設定 */
   overflow-x: scroll;
+  overflow-y: hidden;
   /* 横方向にスクロールバーを表示するように設定 */
 }
 
