@@ -1417,6 +1417,7 @@ button.more.on-click::after {
   #honbun p {
     font-size: 15px;
     padding: 0px;
+    line-height:130%;
     position: relative;
   }
 
