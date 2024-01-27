@@ -1418,7 +1418,7 @@ button.more.on-click::after {
   #honbun p {
     font-size: 15px;
     padding: 0px;
-    line-height:130%;
+    line-height:155%;
     position: relative;
   }
 
@@ -1836,7 +1836,6 @@ button.more.on-click::after {
 
   .nav-list li {
     font-size: 1.5remw;
-    max-font-size: 2px;
     margin: 0;
     padding: 10px;
   }
