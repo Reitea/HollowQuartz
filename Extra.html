@@ -116,30 +116,35 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 5% 20px;"></h2>-->
-        <div class = "comment-container">
-            <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-            <div class="announce" id = "container">
-                <p>コメント欄</p>
-                <div id="comments"></div>
-            
-        <button onclick="toggleItems('container')" class="moreDisp" style="display: block;position: static;">もっと見る</button>
+    <div class="comment-container" style="background-color: #f5f5dc;">
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <div class="announce" id="container" style="background-color: #eeeebc;">
+            <p>自由コメント欄</p>
+            <div id="comments"></div>
+
+            <button onclick="toggleItems('container')" class="moreDisp"
+                style="display: block;position: static;">もっと見る</button>
         </div>
-        <form class="comment-form" action="https://docs.google.com/forms/d/e/1FAIpQLScEB_1Vx1YMyXsFeFO06EnVu3WI6c55MR9MasmP96icB1K_-g/formResponse" target="hidden_iframe" method="post" onsubmit="return test(this.wcheck.value)">
+        <form class="comment-form"
+            action="https://docs.google.com/forms/d/e/1FAIpQLScEB_1Vx1YMyXsFeFO06EnVu3WI6c55MR9MasmP96icB1K_-g/formResponse"
+            target="hidden_iframe" method="post" onsubmit="return test(this.wcheck.value)">
             <p>名前（任意）:<br><input name="entry.1978952386" placeholder="名前" value="匿名" required></p>
             <p style="display: none;"><input name="entry.334720891" placeholder="名前" value="Extra" required></p>
-            <p>コメント：<br><textarea name="entry.1217077393" placeholder="コメント(最長400文字)" rows="10" cols="60" maxlength="400" id="wcheck" required></textarea></p>
-            
+            <p>コメント：<br><textarea name="entry.1217077393" placeholder="コメント(最長400文字)" rows="10" cols="60"
+                    maxlength="400" id="wcheck" required></textarea></p>
+
             <input type="submit" id="submitbutton" value="送信">
-            </form>
-            <iframe onload='if(submitted){window.location="";}' id=hidden_iframe name=hidden_iframe style=display:none></iframe>
+        </form>
+        <iframe onload='if(submitted){window.location="";}' id=hidden_iframe name=hidden_iframe
+            style=display:none></iframe>
 
+    </div>
+        <script src="scripts.js"></script>
 
-    <script src="scripts.js"></script>
-
-    <footer>
-        <div class="footer-logo"><a href="#">玻璃の虚</a></div>
-        <p style="font-size: 10px;top:15%; position: relative;">©宵地. 2023.</p>
-    </footer>
+        <footer>
+            <div class="footer-logo"><a href="#">玻璃の虚</a></div>
+            <p style="font-size: 10px;top:15%; position: relative;">©宵地. 2023.</p>
+        </footer>
 
 
 </body>

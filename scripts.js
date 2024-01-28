@@ -132,7 +132,9 @@ if (content) {
   function handleWheel(event) {
     // マウスのスクロールイベントを検知してX方向にスクロール
     if (content.scrollLeft == 0 & event.deltaY < 0) {
-    } else {
+    }else if( event.deltaX != 0){
+      content.scrollLeft += event.deltaY;
+    }else {
       event.preventDefault(); // デフォルトのスクロール動作を無効にする
       content.scrollLeft -= event.deltaY;
     }

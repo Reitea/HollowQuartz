@@ -37,6 +37,11 @@ table{
   border: 1px solid #000;
 }
 
+.announce li a{
+  color: #005eff;
+  border-bottom: 1px solid #005eff;
+}
+
 .novel-container {
   width: 95%;
   height: 100%;
@@ -543,7 +548,7 @@ img:hover {
   color: #1e366a;
   border-top: solid #1e366a 1px;/*上のボーダー*/
   border-bottom: solid #1e366a 1px;/*下のボーダー*/
-  padding: 0.5em 0 0.5em 1.5em;
+  padding: 0.5em 0 0.5em 0em;
   margin-bottom: 30px;
 }
 
@@ -564,12 +569,13 @@ img:hover {
 .announce li:nth-child(-n+3) {
   display: block;
 }
+/*
 .announce li:last-child {
-  display: block; /* 最後のliは最初から表示 */
-}
+  display: block;   
+}*/
 #comments li {
   display: inline-block;
-  font-size: 20px;
+  font-size: 1em;
   padding: 10px;
   display: block;
 }
