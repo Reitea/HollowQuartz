@@ -180,7 +180,7 @@ function toggleItems(containerId) {
   showOnlyThree = !showOnlyThree;
 }
 
-if(!window.location.pathname.includes("index.html")){
+if(window.location.pathname.includes("Extra.html")||window.location.pathname.includes("novel.html")){
   var submitted = false;
 var NGComments = ["死ね","バカ",".exe"]; // 簡易的なNGワードの設定
 var regex = new RegExp(NGComments.join("|"));
