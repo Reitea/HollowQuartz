@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // ファイルの中身を取得して表示
         let fileContent = xhr.responseText;
-        text.textContent = "";
+        text.textContent = "　";
         fileContent = fileContent.split(/[$,()]/);
 
         console.log(fileContent);
