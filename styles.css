@@ -12,7 +12,17 @@ footer {
 html {
   scroll-behavior: smooth;
 }
-
+header span{
+  margin: auto;
+  vertical-align: middle;
+}
+header img{
+  margin: auto;
+  vertical-align: middle;
+}
+.nav-list li{
+  vertical-align: middle;
+}
 rt {
   font-size: 25%;
 }
