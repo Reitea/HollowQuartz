@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const paragraphs = document.querySelectorAll('.novel p');
   const targetElements = document.querySelectorAll('.intro h1');
-
+  
   const options = {
     root: null,
     rootMargin: '0px',
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.querySelector("#honbun p")
     const title = document.querySelector(".novel-title h1")
     const wordcount = document.querySelector("h5");
+
     // novel.htmlが読み込まれたときに実行したいJavaScriptのコードを書く
     console.log('novel.htmlが読み込まれました！');
     const xhr = new XMLHttpRequest();
@@ -105,8 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     xhr.send();
   }
+  
+  const title = document.querySelector("#type")
+  title.value = encodeURI(Path);
+  console.log(title.value);
 
 });
+
+
 const content = document.querySelector('.novel-container');
 if (content) {
   // カーソルが要素内に入ったらイベントリスナを追加
@@ -172,8 +179,60 @@ function toggleItems(containerId) {
 
   showOnlyThree = !showOnlyThree;
 }
-// 文章データを格納
 
+if(!window.location.pathname.includes("index.html")){
+  var submitted = false;
+var NGComments = ["死ね","バカ",".exe"]; // 簡易的なNGワードの設定
+var regex = new RegExp(NGComments.join("|"));
+function test(wcheck) {
+	if (wcheck.match(regex) != null) {
+		alert("ERROR: コメントにNGワードが含まれています");
+		return false;
+	}
+	document.getElementById("submitbutton").disabled = true;
+	textareas = document.getElementsByTagName('textarea');
+	for(var i=0 ;i < textareas.length ;i ++ ){
+		textareas[i].value = textareas[i].value.replace( /</g ,'&lt;' );
+	}
+	inputs = document.getElementsByTagName('input');
+	for(var i=0 ;i < inputs.length ;i ++ ){
+		inputs[i].value = inputs[i].value.replace( /</g ,'&lt;' );
+	}
+	return submitted=!0;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+Path = urlParams.get('title');
+if(Path==null){
+  Path = "Extra";
+}
+console.log(Path);
+d3.csv(`https://docs.google.com/spreadsheets/d/1UBMITcn7U6nmls5DLRbdjvdXgpXr5A-qOFp0ONVdRrg/export?format=csv&range=A3:D`, function(error, data){
+
+var text = "<ul>";
+var index = 0;
+for(var i=data.length-1; i>0; i--){
+  if(data[i].Type != encodeURI(Path)){
+    continue;
+  } 
+  index++;
+}
+if(index==0){
+  text += "<li>コメントはまだありません</li>";
+}else{
+for(var i=data.length-1; i>0; i--){
+  if(data[i].Type != encodeURI(Path)){
+    continue;
+  } 
+  text += "<li>" + index + " 名前: " + data[i].Name +" "+ data[i].Timestamp + "<pre>" + data[i].Comments + "</pre></li>";
+  index--;
+}
+}
+text+="</ul>";
+	d3.select("#comments").html(text);
+});
+}
+// 文章データを格納
 const textData = [
 
   [

@@ -25,6 +25,18 @@ rt {
   font-family: "Hannari";
 }
 
+table{
+  font-size: 1.5rem;
+}
+.extra{
+  width: 90%;
+  margin: 0 auto;
+}
+.extra td{
+  padding: 10px;
+  border: 1px solid #000;
+}
+
 .novel-container {
   width: 95%;
   height: 100%;
@@ -101,6 +113,32 @@ rt {
 
 .mincho {
   font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;
+}
+
+.comment-container{
+  min-height: 600px;
+  width: 100%;
+  background-color: #e5f1f0;
+}
+.comment-container p{
+  position: relative;
+  padding: 20px;
+  padding-left: 50px;
+  padding-bottom: 0px;
+  margin: 0px;
+  font-size: 1rem;
+}
+#submitbutton{
+  margin: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 50px;
+}
+
+.comment-form{
+  width: 60%;
+  margin: 0 auto;
 }
 
 
@@ -491,6 +529,7 @@ img:hover {
   font-family: 'Times New Roman', Times, serif;
   padding:50px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }.announce p {
   font-size: 200%;
   text-align: center;
@@ -528,6 +567,50 @@ img:hover {
 .announce li:last-child {
   display: block; /* 最後のliは最初から表示 */
 }
+#comments li {
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px;
+  display: block;
+}
+
+#comments li:nth-child(n+4) {
+  display: none;
+}
+
+.topic-path {
+  padding-left: 10%;
+	list-style:none;
+	display: flex;
+  font-size: 1.2rem;
+  
+}
+.topic-path li {
+	position:relative;
+	padding-right:25px;
+  
+  display: inline-block;
+}
+.topic-path a{
+  border-bottom: 1px solid #000;
+  display: inline-block;
+}
+.topic-path li::after {
+	position:absolute;
+	content:"";
+	width:8px;
+	height:8px;
+	border-top: solid 2px;
+	border-right: solid 2px;
+  
+	top:10px;
+	right: 10px;
+	transform: rotate(45deg);
+}
+.topic-path li:last-of-type:after {
+  display: none;/*最後の「>」を非表示にする*/
+  }
+
 
 
 @keyframes rotate {
@@ -1247,6 +1330,9 @@ button.more.on-click::after {
   height: 100%;
 }
 
+#wcheck{
+  width: 60% ;
+}
 
 
 @keyframes bounce {
@@ -1417,6 +1503,8 @@ button.more.on-click::after {
     font-family: 'Times New Roman', Times, serif;  padding:50px;
     
   padding-top: 10px;
+  
+  padding-bottom: 10px;
   }
   .announce li {
     font-size: 1rem;
@@ -1431,6 +1519,10 @@ button.more.on-click::after {
     font-size: 10vw;
     padding-left: 3vw;
     padding-right: 3vw;
+  }
+
+  #wcheck{
+    width: 100% ;
   }
 
   .work-novel {
@@ -1498,7 +1590,6 @@ button.more.on-click::after {
   }
 
   .extra {
-    width: 100%;
     height: auto;
     padding-top: 5%;
     font-size: 20px;
@@ -1823,7 +1914,6 @@ button.more.on-click::after {
   }
 
   .extra {
-    width: 100%;
     height: auto;
     padding-top: 5%;
     font-size: 30px;
@@ -1904,7 +1994,6 @@ button.more.on-click::after {
   }
 
   .extra {
-    width: 100%;
     height: auto;
     padding-top: 5%;
     font-size: 20px;
@@ -2394,7 +2483,6 @@ button.more.on-click::after {
   }
 
   .extra {
-    width: 100%;
     height: auto;
     padding-top: 5%;
     font-size: 30px;
