@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(Path);
     const text = document.querySelector("#honbun p")
     const title = document.querySelector(".novel-title h1")
+    const chapterselector = document.querySelector("#chapter")
     const wordcount = document.querySelector("h5");
 
     // novel.htmlが読み込まれたときに実行したいJavaScriptのコードを書く
@@ -73,17 +74,46 @@ document.addEventListener('DOMContentLoaded', () => {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // ファイルの中身を取得して表示
         let fileContent = xhr.responseText;
-        text.textContent = "　";
+        text.textContent = "";
         fileContent = fileContent.split(/[$,()]/);
 
-        console.log(fileContent);
+        //console.log(fileContent);
         const br = document.createElement("br");
         for (let i = 0; i < fileContent.length; i++) {
           const charNode = document.createTextNode(fileContent[i]);
-
+          if(charNode.textContent.includes("#")){
+            const str_ = charNode.textContent.split("#");
+            var str = charNode.textContent.split("#");
+            console.log(str);
+            var Node = document.createTextNode(str[0]);
+            text.appendChild(Node);
+            var index = 1;
+            do{
+            var str2 = str_[index]
+            console.log(str2);
+            str = str_[index].split("\r\n")[0];
+            str2 = str2.replace(str,"");
+            Node = document.createTextNode(str);
+            const j_Node = document.createElement("p");
+            j_Node.id = str;
+            j_Node.className = "novel-chapter";
+            j_Node.appendChild(Node);
+            text.appendChild(j_Node);
+            text.appendChild(document.createElement("br"));
+            Node = document.createTextNode(str2);
+            text.appendChild(Node);
+            //text.appendChild(Node);
+            const chapter = document.createElement("option");
+            chapter.text = str;
+            chapter.value = str;
+            chapterselector.appendChild(chapter);
+            index++;
+            }while(str_.length>index);
+            continue;
+          }
           if (i % 3 == 0) {
             text.appendChild(charNode);
-            console.log(fileContent[i]);
+            //console.log(fileContent[i]);
           } else if (i % 3 == 1) {
             const rb = document.createElement("ruby");
             rb.appendChild(charNode);
@@ -99,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
         text.appendChild(document.createElement("br"));
         text.appendChild(document.createElement("br"));
 
-        text.textContent
         wordcount.textContent += text.textContent.length + "文字";
       }
 
@@ -113,6 +142,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+    // 選択されたオプションに基づいてターゲットにスクロール
+    function scrollToTarget(selectElement) {
+      var targetId = selectElement.value;
+    
+      if (targetId) {
+        var targetElement = document.getElementById(targetId);
+    
+        if (targetElement) {
+          // ターゲットが存在する場合はスクロール
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+    
+          // スクロール後に画面幅が500以下ならさらにスクロール
+          setTimeout(function() {
+            if (window.innerWidth <= 500) {
+              console.log('画面幅が500以下なのでさらにスクロールします。');
+              var titleElement = document.getElementById('novel-title');
+              if (titleElement) {
+                titleElement.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          }, 1500); // 500ミリ秒待機 (調整可能)
+        }
+      }
+    }
 
 const content = document.querySelector('.novel-container');
 if (content) {

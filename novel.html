@@ -54,7 +54,7 @@
     <main style="height: 100%; position:relative">
         <div class="work-container">
             <div class="novel-title">
-                <h1>「ここにタイトルが入ります」</h1>
+                <h1 id = "novel-title">「ここにタイトルが入ります」</h1>
             </div>
             <div class="novel-container">
                 <div id="honbun">
@@ -63,9 +63,14 @@
                 </div>
             </div>
             <h5 style="text-align:right">総文字数：</h5>
+            <form style="display: flex;padding-top: 30px;padding-bottom: 60px;">
+            <select id="chapter"  onchange="scrollToTarget(this)">
+                <option value="">Chapter Selector</option>
+                </select>
+              </form>
             <div style="text-align: center;">
                 <a href="works.html"
-                    style="width:fit-content; position: 10%; font-size : 3.5vw;text-align: center; text-decoration: underline;">
+                    style="width:fit-content; position: 10%; font-size : 1.5rem;text-align: center; text-decoration: underline;">
                     小説置き場に戻る。
                 </a>
             </div>
