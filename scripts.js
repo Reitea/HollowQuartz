@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleElement.scrollIntoView({ behavior: 'smooth' });
               }
             }
-          }, 1500); // 500ミリ秒待機 (調整可能)
+          }, 800); // 500ミリ秒待機 (調整可能)
         }
       }
     }

@@ -1443,7 +1443,11 @@ button.more.on-click::after {
 }
 
 @media (max-width: 500px) {
-
+  #chapter{
+    width: 80%;
+    height: 50px;
+    font-size: 1.2rem;
+  }
   /*ハンバーガーアイコン*/
   .btn-burger {
     cursor: pointer;
