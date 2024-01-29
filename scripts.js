@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             do{
             var str2 = str_[index]
             console.log(str2);
-            str = str_[index].split("\r\n")[0];
+            str = str_[index].split(/\r\n|\r|\n/)[0];
             str2 = str2.replace(str,"");
             Node = document.createTextNode(str);
             const j_Node = document.createElement("p");
