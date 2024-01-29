@@ -84,13 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
           if(charNode.textContent.includes("#")){
             const str_ = charNode.textContent.split("#");
             var str = charNode.textContent.split("#");
-            console.log(str);
+            //console.log(str);
             var Node = document.createTextNode(str[0]);
             text.appendChild(Node);
             var index = 1;
             do{
             var str2 = str_[index]
-            console.log(str2);
+            //console.log(str2);
             str = str_[index].split(/\r\n|\r|\n/)[0];
             str2 = str2.replace(str,"");
             Node = document.createTextNode(str);
@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             text.appendChild(j_Node);
             text.appendChild(document.createElement("br"));
             Node = document.createTextNode(str2);
+            console.log(Node.textContent);
             text.appendChild(Node);
             //text.appendChild(Node);
             const chapter = document.createElement("option");
