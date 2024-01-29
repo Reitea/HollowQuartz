@@ -119,6 +119,7 @@ table{
   height: 100%;
   width: 100%;
   padding: 30px 0;
+  padding-bottom: 0px;
   float: left;
   position: relative;
 
@@ -138,7 +139,9 @@ table{
 }
 #honbun p {
   padding: 35px;
-
+  padding-top: 30px;
+  padding-bottom: 0px;
+  height: 100%;
   white-space: pre-line;
   margin: 0;
   font-size: 2em;
@@ -1443,11 +1446,6 @@ button.more.on-click::after {
 }
 
 @media (max-width: 500px) {
-  #chapter{
-    width: 80%;
-    height: 50px;
-    font-size: 1.2rem;
-  }
   /*ハンバーガーアイコン*/
   .btn-burger {
     cursor: pointer;
@@ -1559,6 +1557,12 @@ button.more.on-click::after {
 
 /* 画面幅が小さいときのスタイル */
 @media (max-width: 768px) {
+  
+  #chapter{
+    width: 80%;
+    height: 50px;
+    font-size: 1.2rem;
+  }
   .header {
     margin-top: 80px;
     margin-left: 10%;

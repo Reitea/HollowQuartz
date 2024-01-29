@@ -150,19 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
         var targetElement = document.getElementById(targetId);
     
         if (targetElement) {
-          // ターゲットが存在する場合はスクロール
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-    
-          // スクロール後に画面幅が500以下ならさらにスクロール
+          // スクロール後に画面幅が768以下ならさらにスクロール
           setTimeout(function() {
-            if (window.innerWidth <= 500) {
-              console.log('画面幅が500以下なのでさらにスクロールします。');
+            if (window.innerWidth <= 768) {
+              console.log('画面幅が768以下なのでさらにスクロールします。');
               var titleElement = document.getElementById('novel-title');
               if (titleElement) {
                 titleElement.scrollIntoView({ behavior: 'smooth' });
               }
             }
-          }, 800); // 500ミリ秒待機 (調整可能)
+          }, 600); // 500ミリ秒待機 (調整可能)
+          // ターゲットが存在する場合はスクロール
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+    
+
         }
       }
     }
