@@ -12,14 +12,6 @@ footer {
 html {
   scroll-behavior: smooth;
 }
-header span{
-  margin: auto;
-  vertical-align: middle;
-}
-header img{
-  margin: auto;
-  vertical-align: middle;
-}
 .nav-list li{
   vertical-align: middle;
 }
@@ -278,8 +270,16 @@ header {
 
   font-size: 1.5rem;
   padding: 35px;
-  margin-left: 2vw;
+  padding-left: 20px;
   display: flex;
+}
+header span{
+  margin: auto;
+  vertical-align: middle;
+}
+header img{
+  margin: auto;
+  vertical-align: middle;
 }
 
 header ul {
@@ -1437,6 +1437,9 @@ button.more.on-click::after {
   .icon:after {
     top: -20px;
   }
+  .container{
+    padding-top: 20px;
+  }
 
   /*チェックボックス非表示*/
   .nav-toggle {
@@ -1485,6 +1488,15 @@ button.more.on-click::after {
 
   .nav-toggle:checked~.nav .nav-list {
     display: block;
+  }
+
+  header span{
+    margin-top: 10px;
+    vertical-align:top;
+  }
+  header img{
+    margin: 0;
+    vertical-align: middle;
   }
 }
 
