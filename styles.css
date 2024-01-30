@@ -642,7 +642,7 @@ img:hover {
   display: block;   
 }*/
 #comments ul{
-  padding: 15px 10%;
+  padding: 15px 0px;
   overflow-wrap: break-word;
 }
 #comments li {
@@ -654,6 +654,8 @@ img:hover {
 #comments pre{
   white-space: pre-wrap;
   word-wrap: break-word;
+  padding-top: 10px;
+  
   font-size: 0.8em;
   text-align: left;
   font-family: "さわらび明朝", "Noto Serif Japanese", serif;
@@ -677,7 +679,9 @@ img:hover {
   display: inline-block;
 }
 .topic-path a{
-  border-bottom: 1px solid #000;
+  text-decoration: underline;
+  text-decoration-thickness: 1.1px;
+  text-underline-offset:3px;
   display: inline-block;
 }
 .topic-path li::after {
@@ -1572,6 +1576,12 @@ button.more.on-click::after {
   #submitbutton{
     margin-left: 0px;
   }
+  #comments{
+    font-size: 1.2em;
+  }
+  #comments pre {
+    padding-top: 3px;
+  }
   #comments li {
     font-size: 0.7em;
   }
@@ -1655,7 +1665,7 @@ button.more.on-click::after {
   }
 
   .novel-title {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   .novel-container {
@@ -2466,6 +2476,12 @@ button.more.on-click::after {
     overflow-wrap: break-word;
     /* 追加 */
   }
+
+  
+  .novel-title {
+    font-size: 2.5vw;
+  }
+
 
 
 }

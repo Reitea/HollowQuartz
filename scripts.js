@@ -3,56 +3,58 @@ console.log('Script file executed.'); // 最初の行にこのコードを追加
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Script loaded and ready.');
 
-  const paragraphs = document.querySelectorAll('.novel p');
-  const targetElements = document.querySelectorAll('.intro h1');
-  
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-  };
+  if (window.location.pathname.includes("index.html")) {
+    const paragraphs = document.querySelectorAll('.novel p');
+    const targetElements = document.querySelectorAll('.intro h1');
 
-  const paragraphObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const paragraph = entry.target;
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
 
-        paragraph.innerHTML = paragraph.textContent.split('').map(char => `<span>${char}</span>`).join('');
+    const paragraphObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const paragraph = entry.target;
 
-        const spans = paragraph.querySelectorAll('span');
-        spans.forEach((span, index) => {
-          const baseDelay = 175;
-          const randomDelay = Math.floor(Math.random() * baseDelay);
+          paragraph.innerHTML = paragraph.textContent.split('').map(char => `<span>${char}</span>`).join('');
 
-          setTimeout(() => {
-            span.style.opacity = '1';
-          }, 500 + baseDelay * index + randomDelay);
-        });
+          const spans = paragraph.querySelectorAll('span');
+          spans.forEach((span, index) => {
+            const baseDelay = 175;
+            const randomDelay = Math.floor(Math.random() * baseDelay);
 
-        observer.unobserve(paragraph);
-      }
+            setTimeout(() => {
+              span.style.opacity = '1';
+            }, 500 + baseDelay * index + randomDelay);
+          });
+
+          observer.unobserve(paragraph);
+        }
+      });
+    }, options);
+
+    const fadeInObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = entry.target;
+
+          target.style.animation = "fade-in 2s ease-in forwards";
+
+          observer.unobserve(target);
+        }
+      });
+    }, options);
+
+    paragraphs.forEach(paragraph => {
+      paragraphObserver.observe(paragraph);
     });
-  }, options);
 
-  const fadeInObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const target = entry.target;
-
-        target.style.animation = "fade-in 2s ease-in forwards";
-
-        observer.unobserve(target);
-      }
+    targetElements.forEach(target => {
+      fadeInObserver.observe(target);
     });
-  }, options);
-
-  paragraphs.forEach(paragraph => {
-    paragraphObserver.observe(paragraph);
-  });
-
-  targetElements.forEach(target => {
-    fadeInObserver.observe(target);
-  });
+  }
 
   // 現在のページがnovel.htmlであるかを確認
   if (window.location.pathname.includes("novel.html")) {
@@ -67,49 +69,64 @@ document.addEventListener('DOMContentLoaded', () => {
     const xhr = new XMLHttpRequest();
     const urlParams = new URLSearchParams(window.location.search);
     Path = urlParams.get('title');
-    title.textContent = "「" + Path + "」";
+    if (Path.split("_")[1] == "あとがき") {
+      title.textContent = "あとがき"
+    const topic_novel =document.getElementById("novelListItem")
+    const topic = document.querySelector(".topic-path")
+    const here = document.createElement("li");
+    const href = document.createElement("a");
+    href.href = "#";
+    href.textContent = "P.S.";
+    here.appendChild(href);
+    topic.appendChild(here);
+
+    topic_novel.href = "novel.html?title="+Path.split("_")[0];
+    } else {
+      title.textContent = "";
+    }
+    title.textContent += "「" + Path.split("_")[0] + "」";
     const filePath = Path + ".txt";
+    text.textContent = "";
     xhr.open("GET", filePath, true);
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // ファイルの中身を取得して表示
         let fileContent = xhr.responseText;
-        text.textContent = "";
         fileContent = fileContent.split(/[$,()]/);
 
         //console.log(fileContent);
         const br = document.createElement("br");
         for (let i = 0; i < fileContent.length; i++) {
           const charNode = document.createTextNode(fileContent[i]);
-          if(charNode.textContent.includes("#")){
+          if (charNode.textContent.includes("#")) {
             const str_ = charNode.textContent.split("#");
             var str = charNode.textContent.split("#");
             //console.log(str);
             var Node = document.createTextNode(str[0]);
             text.appendChild(Node);
             var index = 1;
-            do{
-            var str2 = str_[index]
-            //console.log(str2);
-            str = str_[index].split(/\r\n|\r|\n/)[0];
-            str2 = str2.replace(str,"");
-            Node = document.createTextNode(str);
-            const j_Node = document.createElement("p");
-            j_Node.id = str;
-            j_Node.className = "novel-chapter";
-            j_Node.appendChild(Node);
-            text.appendChild(j_Node);
-            text.appendChild(document.createElement("br"));
-            Node = document.createTextNode(str2);
-            //console.log(Node.textContent);
-            text.appendChild(Node);
-            //text.appendChild(Node);
-            const chapter = document.createElement("option");
-            chapter.text = str;
-            chapter.value = str;
-            chapterselector.appendChild(chapter);
-            index++;
-            }while(str_.length>index);
+            do {
+              var str2 = str_[index]
+              //console.log(str2);
+              str = str_[index].split(/\r\n|\r|\n/)[0];
+              str2 = str2.replace(str, "");
+              Node = document.createTextNode(str);
+              const j_Node = document.createElement("p");
+              j_Node.id = str;
+              j_Node.className = "novel-chapter";
+              j_Node.appendChild(Node);
+              text.appendChild(j_Node);
+              text.appendChild(document.createElement("br"));
+              Node = document.createTextNode(str2);
+              //console.log(Node.textContent);
+              text.appendChild(Node);
+              //text.appendChild(Node);
+              const chapter = document.createElement("option");
+              chapter.text = str;
+              chapter.value = str;
+              chapterselector.appendChild(chapter);
+              index++;
+            } while (str_.length > index);
             continue;
           }
           if (i % 3 == 0) {
@@ -126,70 +143,79 @@ document.addEventListener('DOMContentLoaded', () => {
             text.appendChild(rb);
           }
         }
-        text.appendChild(document.createElement("br"));
-        text.appendChild(document.createElement("br"));
-        text.appendChild(document.createElement("br"));
 
+        if (Path.split("_").length == 1) {
+          const after = document.querySelector("a");
+          after.textContent = "あとがきへ";
+          after.href = "novel.html?title=" + Path + "_あとがき";
+          after.style = "color: blue;position: absolute;bottom: 0;text-decoration: overline;text-decoration-thickness: 1px;";
+          text.appendChild(after);
+        }
+        text.appendChild(document.createElement("br"));
+        text.appendChild(document.createElement("br"));
+        text.appendChild(document.createElement("br"));
         wordcount.textContent += text.textContent.length + "文字";
+      } else if (xhr.readyState == 4 && xhr.status == 404) {
+
+        if (Path.split("_")[1] == "あとがき") {
+          text.appendChild(document.createTextNode("あとがきが用意されていないか、"));
+        }
+          text.appendChild(document.createTextNode("エラーです。再度お試しください。"));
+        
       }
 
     };
     xhr.send();
+    const comment_type = document.querySelector("#type");
+    comment_type.value = encodeURI(Path.split("_")[0]);
   }
-  
-  const title = document.querySelector("#type")
-  title.value = encodeURI(Path);
-  console.log(title.value);
-
 });
 
-    // 選択されたオプションに基づいてターゲットにスクロール
-    function scrollToTarget(selectElement) {
-      var targetId = selectElement.value;
-    
-      if (targetId) {
-        var targetElement = document.getElementById(targetId);
-    
-        if (targetElement) {
-          // スクロール後に画面幅が768以下ならさらにスクロール
-          setTimeout(function() {
-            if (window.innerWidth <= 768) {
-              console.log('画面幅が768以下なのでさらにスクロールします。');
-              var titleElement = document.getElementById('novel-title');
-              if (titleElement) {
-                titleElement.scrollIntoView({ behavior: 'smooth' });
-              }
-            }
-          }, 600); // 500ミリ秒待機 (調整可能)
-          // ターゲットが存在する場合はスクロール
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-    
+// 選択されたオプションに基づいてターゲットにスクロール
+function scrollToTarget(selectElement) {
+  var targetId = selectElement.value;
 
+  if (targetId) {
+    var targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      // スクロール後に画面幅が768以下ならさらにスクロール
+      setTimeout(function () {
+        if (window.innerWidth <= 768) {
+          console.log('画面幅が768以下なのでさらにスクロールします。');
+          var titleElement = document.getElementById('novel-title');
+          if (titleElement) {
+            titleElement.scrollIntoView({ behavior: 'smooth' });
+          }
         }
-      }
+      }, 600); // 500ミリ秒待機 (調整可能)
+      // ターゲットが存在する場合はスクロール
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+
+
     }
+  }
+}
 
 const content = document.querySelector('.novel-container');
 if (content) {
   // カーソルが要素内に入ったらイベントリスナを追加
   content.addEventListener('mouseenter', () => {
     document.addEventListener('wheel', handleWheel, { passive: false });
-    console.log('カーソルが要素内に入りました。');
   });
 
   // カーソルが要素から出たらイベントリスナを削除
   content.addEventListener('mouseleave', () => {
     document.removeEventListener('wheel', handleWheel);
-    console.log('カーソルが要素内から出ました。');
   });
 
   // マウスのスクロールイベントを処理する関数
   function handleWheel(event) {
     // マウスのスクロールイベントを検知してX方向にスクロール
     if (content.scrollLeft == 0 & event.deltaY < 0) {
-    }else if( event.deltaX != 0){
+    } else if (event.deltaX != 0) {
       content.scrollLeft += event.deltaY;
-    }else {
+    } else {
       event.preventDefault(); // デフォルトのスクロール動作を無効にする
       content.scrollLeft -= event.deltaY;
     }
@@ -229,6 +255,8 @@ function toggleItems(containerId) {
     }
   });
   if (button.innerHTML === '閉じる') {
+    var targetElement = document.getElementById(containerId);
+    targetElement.scrollIntoView({ behavior: 'smooth' });
     button.innerHTML = 'もっと見る';
   } else {
     button.innerHTML = '閉じる';
@@ -237,57 +265,56 @@ function toggleItems(containerId) {
   showOnlyThree = !showOnlyThree;
 }
 
-if(window.location.pathname.includes("Extra.html")||window.location.pathname.includes("novel.html")){
+if (window.location.pathname.includes("Extra.html") || window.location.pathname.includes("novel.html")) {
   var submitted = false;
-var NGComments = ["死ね","バカ",".exe"]; // 簡易的なNGワードの設定
-var regex = new RegExp(NGComments.join("|"));
-function test(wcheck) {
-	if (wcheck.match(regex) != null) {
-		alert("ERROR: コメントにNGワードが含まれています");
-		return false;
-	}
-	document.getElementById("submitbutton").disabled = true;
-	textareas = document.getElementsByTagName('textarea');
-	for(var i=0 ;i < textareas.length ;i ++ ){
-		textareas[i].value = textareas[i].value.replace( /</g ,'&lt;' );
-	}
-	inputs = document.getElementsByTagName('input');
-	for(var i=0 ;i < inputs.length ;i ++ ){
-		inputs[i].value = inputs[i].value.replace( /</g ,'&lt;' );
-	}
-	return submitted=!0;
-}
+  var NGComments = ["死ね", "バカ", ".exe"]; // 簡易的なNGワードの設定
+  var regex = new RegExp(NGComments.join("|"));
+  function test(wcheck) {
+    if (wcheck.match(regex) != null) {
+      alert("ERROR: コメントにNGワードが含まれています");
+      return false;
+    }
+    document.getElementById("submitbutton").disabled = true;
+    textareas = document.getElementsByTagName('textarea');
+    for (var i = 0; i < textareas.length; i++) {
+      textareas[i].value = textareas[i].value.replace(/</g, '&lt;');
+    }
+    inputs = document.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = inputs[i].value.replace(/</g, '&lt;');
+    }
+    return submitted = !0;
+  }
+  const urlParams = new URLSearchParams(window.location.search);
+  Path = urlParams.get('title');
+  if (Path == null) {
+    Path = "Extra";
+  }
+  console.log(Path);
+  d3.csv(`https://docs.google.com/spreadsheets/d/1UBMITcn7U6nmls5DLRbdjvdXgpXr5A-qOFp0ONVdRrg/export?format=csv&range=A3:D`, function (error, data) {
 
-const urlParams = new URLSearchParams(window.location.search);
-Path = urlParams.get('title');
-if(Path==null){
-  Path = "Extra";
-}
-console.log(Path);
-d3.csv(`https://docs.google.com/spreadsheets/d/1UBMITcn7U6nmls5DLRbdjvdXgpXr5A-qOFp0ONVdRrg/export?format=csv&range=A3:D`, function(error, data){
-
-var text = "<ul>";
-var index = 0;
-for(var i=data.length-1; i>0; i--){
-  if(data[i].Type != encodeURI(Path)){
-    continue;
-  } 
-  index++;
-}
-if(index==0){
-  text += "<li>コメントはまだありません</li>";
-}else{
-for(var i=data.length-1; i>0; i--){
-  if(data[i].Type != encodeURI(Path)){
-    continue;
-  } 
-  text += "<li>" + index + " 名前: " + data[i].Name +" "+ data[i].Timestamp + "<pre>" + data[i].Comments + "</pre></li>";
-  index--;
-}
-}
-text+="</ul>";
-	d3.select("#comments").html(text);
-});
+    var text = "<ul>";
+    var index = 0;
+    for (var i = data.length - 1; i > 0; i--) {
+      if (data[i].Type != encodeURI(Path.split("_")[0])) {
+        continue;
+      }
+      index++;
+    }
+    if (index == 0) {
+      text += "<li>コメントはまだありません</li>";
+    } else {
+      for (var i = data.length - 1; i > 0; i--) {
+        if (data[i].Type != encodeURI(Path.split("_")[0])) {
+          continue;
+        }
+        text += "<li>" + index + " 名前: " + data[i].Name + " " + data[i].Timestamp + "<pre>" + data[i].Comments + "</pre></li>";
+        index--;
+      }
+    }
+    text += "</ul>";
+    d3.select("#comments").html(text);
+  });
 }
 // 文章データを格納
 const textData = [
@@ -349,7 +376,6 @@ const textData = [
   ]
 ];
 
-const paragraphs = document.querySelectorAll('.novel p');
 let currentTextIndex = 0;
 
 function updateText(paragraphs, newTextArray) {
@@ -522,28 +548,27 @@ function bounceAnimation() {
 }
 
 
+if (window.location.pathname.includes("index.html")) {
 
-var textarea = $('.term');
-var typingSpeed = 70; // Typing speed in milliseconds
-var scrollSpeed = 0.000000000000000000001; // Scroll speed factor
-var text = 'sh Bunjin_toYodo.sh';
-var animationExecuted = false;
-var i = 0;
-var k = Math.floor(Math.random() * 2);
+  console.log('ロードされました');
+  if (sessionStorage.getItem('animationExecuted') === null) {
 
-console.log('ロードされました');
-if (sessionStorage.getItem('animationExecuted') === null) {
-
-  console.log('runします');
-  runner();
-  // アニメーションが実行された後、セッションストレージに記録
-  sessionStorage.setItem('animationExecuted', 'true');
-} else {
-  setTimeout(function () {
+    console.log('runします');
+    var textarea = $('.term');
+    var typingSpeed = 70; // Typing speed in milliseconds
+    var scrollSpeed = 0.000000000000000000001; // Scroll speed factor
+    var text = 'sh Bunjin_toYodo.sh';
+    var animationExecuted = false;
+    var i = 0;
+    var k = Math.floor(Math.random() * 2);
+    runner();
+    // アニメーションが実行された後、セッションストレージに記録
+    sessionStorage.setItem('animationExecuted', 'true');
+  } else {
+    console.log('runしません');
     $(".load").fadeOut(0);
-  }, 0);
+  }
 }
-
 
 function runner() {
   textarea.append(text.charAt(i));
