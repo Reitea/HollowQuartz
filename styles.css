@@ -1737,6 +1737,9 @@ button.more.on-click::after {
 
     font-size: 1rem;
   }
+  .intro{
+    padding: 30px 7vw;
+  }
 }
 
 /* 画面幅が小さいときのスタイル */
@@ -2276,13 +2279,15 @@ button.more.on-click::after {
     margin: 0;
     padding: 10px;
   }
+  .intro{
+  
+  padding: 40px 10vw;
+  }
   
 .intro h1 {
-  width: 78%;
   font-size: 1.2rem;
   font-family: 'Times New Roman', Times, serif;
   opacity: 0;
-  margin-left: 10vw;
 }
 
   .extra {
