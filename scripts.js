@@ -145,10 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (Path.split("_").length == 1) {
-          const after = document.querySelector("a");
+          const after = document.createElement("a");
           after.textContent = "あとがきへ";
           after.href = "novel.html?title=" + Path + "_あとがき";
           after.style = "color: blue;position: absolute;bottom: 0;text-decoration: overline;text-decoration-thickness: 1px;";
+          
+          text.appendChild(document.createElement("br"));
           text.appendChild(after);
         }
         text.appendChild(document.createElement("br"));

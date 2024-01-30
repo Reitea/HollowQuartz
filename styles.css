@@ -1577,10 +1577,11 @@ button.more.on-click::after {
     margin-left: 0px;
   }
   #comments{
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   #comments pre {
     padding-top: 3px;
+    font-size: 0.9em;
   }
   #comments li {
     font-size: 0.7em;
