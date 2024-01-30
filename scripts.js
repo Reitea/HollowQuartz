@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             text.appendChild(j_Node);
             text.appendChild(document.createElement("br"));
             Node = document.createTextNode(str2);
-            console.log(Node.textContent);
+            //console.log(Node.textContent);
             text.appendChild(Node);
             //text.appendChild(Node);
             const chapter = document.createElement("option");
