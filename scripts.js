@@ -71,16 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     Path = urlParams.get('title');
     if (Path.split("_")[1] == "あとがき") {
       title.textContent = "あとがき"
-    const topic_novel =document.getElementById("novelListItem")
-    const topic = document.querySelector(".topic-path")
-    const here = document.createElement("li");
-    const href = document.createElement("a");
-    href.href = "#";
-    href.textContent = "P.S.";
-    here.appendChild(href);
-    topic.appendChild(here);
+      const topic_novel = document.getElementById("novelListItem")
+      const topic = document.querySelector(".topic-path")
+      const here = document.createElement("li");
+      const href = document.createElement("a");
+      href.href = "#";
+      href.textContent = "P.S.";
+      here.appendChild(href);
+      topic.appendChild(here);
 
-    topic_novel.href = "novel.html?title="+Path.split("_")[0];
+      topic_novel.href = "novel.html?title=" + Path.split("_")[0];
     } else {
       title.textContent = "";
     }
@@ -149,23 +149,29 @@ document.addEventListener('DOMContentLoaded', () => {
           after.textContent = "あとがきへ";
           after.href = "novel.html?title=" + Path + "_あとがき";
           after.style = "color: blue;position: absolute;bottom: 0;text-decoration: overline;text-decoration-thickness: 1px;";
-          
+
           text.appendChild(document.createElement("br"));
           text.appendChild(after);
         }
+
         text.appendChild(document.createElement("br"));
         text.appendChild(document.createElement("br"));
         text.appendChild(document.createElement("br"));
         wordcount.textContent += text.textContent.length + "文字";
+        console.log(chapterselector.length);
+        if (chapterselector.length == 1) {
+          chapterselector.parentNode.style.display = "none";
+        }
       } else if (xhr.readyState == 4 && xhr.status == 404) {
 
+        chapterselector.parentNode.style.display = "none";
         if (Path.split("_")[1] == "あとがき") {
           text.appendChild(document.createTextNode("あとがきが用意されていないか、"));
-        }
-          text.appendChild(document.createTextNode("エラーです。再度お試しください。"));
-        
-      }
 
+        }
+        text.appendChild(document.createTextNode("エラーです。再度お試しください。"));
+
+      }
     };
     xhr.send();
     const comment_type = document.querySelector("#type");
@@ -407,7 +413,7 @@ if (window.location.pathname.includes("index.html")) {
   document.getElementById('changeText').addEventListener('click', () => {
     // 文章を切り替える
     console.log('ボタンがクリックされました。');
-
+    var paragraphs = document.querySelectorAll('.novel p');
     currentTextIndex = (currentTextIndex + 1) % textData.length;
     updateText(paragraphs, textData[currentTextIndex]);
   });
