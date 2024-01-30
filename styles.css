@@ -95,7 +95,7 @@ rt {
   text-decoration-thickness: 2px;
 }
 .status h2{
-  font-size: 1.8vw;
+  font-size: 2.2vw;
   margin-bottom: 10px;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   padding: 0px 20px;
@@ -1720,27 +1720,29 @@ button.more.on-click::after {
   .square_intro1{
     display: none;
   }
-  
-}
-
-/* 画面幅が小さいときのスタイル */
-@media (max-width: 768px) {
-  .status{
-    padding: 20px;
+    .status{
+    padding: 20px 10px;
   }
   .status span{
     font-size: 1.8em;
   }
 
   .status h1{
-    font-size: 1.2em;
+    font-size: 1.4em;
   }
   .status h2{
-    font-size: 3.5vw;
+    font-size: 4vw;
     padding: 0 10px;
   }
-  .status a{
+  .table {
+
+    font-size: 1rem;
   }
+}
+
+/* 画面幅が小さいときのスタイル */
+@media (max-width: 768px) {
+
   #chapter{
     width: 80%;
     height: 50px;
@@ -1858,7 +1860,11 @@ button.more.on-click::after {
   }
 
   table {
-    font-size: 3.5vw;
+    font-size: 3.2vw;
+  }
+  
+  .status span{
+    font-size: 2em;
   }
 
   .extra {
@@ -1869,7 +1875,9 @@ button.more.on-click::after {
     justify-content: center;
     text-align: center;
   }
-
+.extra h1{
+  font-size: 1.5em;
+}
   .extra h2 {
     font-size: 30px;
   }
@@ -2284,6 +2292,9 @@ button.more.on-click::after {
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+  table {
+    font-size: 1.8vw;
   }
 
   main ul {
