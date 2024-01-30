@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     Path = urlParams.get('title');
     if (Path.split("_")[1] == "あとがき") {
       title.textContent = "あとがき"
+      if(window.innerWidth<=500)
       title.style = "font-size: 1.2rem;"
       const topic_novel = document.getElementById("novelListItem")
       const topic = document.querySelector(".topic-path")
