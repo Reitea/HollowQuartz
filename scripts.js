@@ -582,7 +582,7 @@ function bounceAnimation() {
 }
 
 
-if (window.location.pathname.includes("index.html")) {
+if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.includes("novel.html")||!window.location.pathname.includes("works.html")) {
 
   console.log('ロードされました');
   if (sessionStorage.getItem('animationExecuted') === null) {
