@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     targetElements.forEach(target => {
       fadeInObserver.observe(target);
     });
+
+
   }
 
   // 現在のページがnovel.htmlであるかを確認
@@ -177,6 +179,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const comment_type = document.querySelector("#type");
     comment_type.value = encodeURI(Path.split("_")[0]);
   }
+  if(window.location.pathname.includes("Extra.html")){
+          // 星を表示するための親要素を取得
+  const stars = document.querySelector(".status");
+
+  // 星を生成する関数
+  const createStar = () => {
+    const starEl = document.createElement("div");
+    starEl.className = "star";
+    const minSize = 1; // 星の最小サイズを指定
+    const maxSize = 2.5; // 星の最大サイズを指定
+    const size = Math.random() * (maxSize - minSize) + minSize;
+    starEl.style.width = `${size}px`;
+    starEl.style.height = `${size}px`;
+    starEl.style.left = `${Math.random() * 100}%`;
+    starEl.style.top = `${Math.random() * 100}%`;
+    starEl.style.animationDelay = `${Math.random() * 10}s`;
+    stars.appendChild(starEl);
+  };
+
+  // for文で星を生成する関数を指定した回数呼び出す
+  for (let i = 0; i <= 200; i++) {
+    createStar();
+  }
+  }
 });
 
 // 選択されたオプションに基づいてターゲットにスクロール
@@ -264,7 +290,7 @@ function toggleItems(containerId) {
   });
   if (button.innerHTML === '閉じる') {
     var targetElement = document.getElementById(containerId);
-    targetElement.scrollIntoView({ behavior: 'smooth' });
+    //targetElement.scrollIntoView({ behavior: 'smooth' });
     button.innerHTML = 'もっと見る';
   } else {
     button.innerHTML = '閉じる';

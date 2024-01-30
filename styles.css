@@ -58,7 +58,86 @@ rt {
   transition: background-color 0.3s ease;
 }
 
+.status a{
+  text-decoration: underline;
+  color: rgb(0, 94, 255);
+}
 
+.status{
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(230, 207, 184, 0.767);
+  padding: 50px;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+}
+.status span{
+  text-align: center;
+  font-size: 3.5vw;
+  font-family:'Times New Roman', Times, serif;
+  margin: 0px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+}
+.status-child{
+  display:flex;
+  justify-content: center;
+}
+.status h1{
+  font-size: 2.8vw;
+  font-family:serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+.status h2{
+  font-size: 1.8vw;
+  margin-bottom: 10px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 0px 20px;
+}
+
+
+
+
+/* 星空の背景のスタイル */
+.status {
+  position: relative;
+  background-image: linear-gradient(20deg,rgb(226, 135, 17), #f69309cf, #b27b53b4, #bccfdbd1, #bccfdbd1); /* 星空の背景色 */
+  overflow: hidden; /* 星が枠外にはみ出すのを防ぐ */
+}
+
+/* 星のスタイル */
+.star {
+  position: absolute;
+  display: block;
+  background-color: #fff; /* 星の色 */
+  border-radius: 50%;
+  box-shadow: 0 0 4px 2px rgba(#fff, 0.2); /* 星の影 */
+  opacity: 0;
+  animation: twinkle 5s infinite;
+}
+
+/* 星がキラキラ光るアニメーション */
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
 
 #header-text {
   height: 100%;
@@ -585,10 +664,35 @@ img:hover {
 .square_intro2 {
   position: absolute;
   top: 10vw;
-  left: 6.5vw;
+  left: 7%;
   width: 120px;
   height: 120px;
   border: 5px solid rgb(119, 12, 101, 0.4)
+}
+.square_intro3 {
+  position: absolute;
+  top: 40%;
+  left: 85%;
+  width: 9vw;
+  height: 9vw;
+  border: 5px solid rgba(39, 255, 1, 0.541)
+}
+.square_intro4 {
+  position: absolute;
+  top: 55%;
+  left: 88%;
+  width: 9vw;
+  height: 9vw;
+  border: 5px solid rgba(255, 183, 1, 0.73)
+}
+.square_intro5 {
+  position: absolute;
+  top: 70%;
+  left: 4%;
+  width: 7vw;
+  height: 7vw;
+  border: 5px solid rgba(77, 1, 255, 0.412);
+  transform:rotate(45deg);
 }
 
 .square>* {
@@ -618,6 +722,8 @@ img:hover {
   border-bottom: solid #1e366a 1px;/*下のボーダー*/
   padding: 0.5em 0 0.5em 0em;
   margin-bottom: 30px;
+  max-height: 500px;
+  overflow: auto;
 }
 
 .announce ul li, ol li {
@@ -844,6 +950,16 @@ img:hover {
 .ttl_line1 {
   font-weight: bold;
   border-left: 5px solid #4c9ac0;
+  border-bottom: 2px dashed #B4B4B4;
+  padding: 0.25em 0 0.3em 0.5em;
+}.ttl_line2 {
+  font-weight: bold;
+  border-left: 5px solid #d9b638;
+  border-bottom: 2px dashed #B4B4B4;
+  padding: 0.25em 0 0.3em 0.5em;
+}.ttl_line3 {
+  font-weight: bold;
+  border-left: 5px solid #00a66fda;
   border-bottom: 2px dashed #B4B4B4;
   padding: 0.25em 0 0.3em 0.5em;
 }
@@ -1469,6 +1585,16 @@ button.more.on-click::after {
 }
 
 @media (max-width: 500px) {
+
+  .title span {
+    font-size: 7.5vw;
+  }
+  .title p{
+  }
+  .header p{
+    font-size: 6vw;
+  }
+  
   /*ハンバーガーアイコン*/
   .btn-burger {
     cursor: pointer;
@@ -1553,7 +1679,7 @@ button.more.on-click::after {
   }
 
   .nav-list li {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 0;
     padding: 10px;
   }
@@ -1586,11 +1712,38 @@ button.more.on-click::after {
   #comments li {
     font-size: 0.7em;
   }
+  .btn {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+    letter-spacing: 0.2em;
+    margin: 20px;
+  }
+  .square_intro1{
+    display: none;
+  }
+  
 }
 
 /* 画面幅が小さいときのスタイル */
 @media (max-width: 768px) {
-  
+  .status{
+    padding: 20px;
+  }
+  .status span{
+    font-size: 1.8em;
+  }
+
+  .status h1{
+    font-size: 1.2em;
+  }
+  .status h2{
+    font-size: 3.5vw;
+    padding: 0 10px;
+  }
+  .status a{
+  }
   #chapter{
     width: 80%;
     height: 50px;
