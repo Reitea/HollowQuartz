@@ -583,15 +583,16 @@ function bounceAnimation() {
   });
 }
 
-
+    function Wheel(event) {
+      event.preventDefault();
+      console.log('スクロールされました');
+    }
 if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.includes("novel.html")||!window.location.pathname.includes("works.html")) {
 
   console.log('ロードされました');
   if (sessionStorage.getItem('animationExecuted') === null) {
     document.addEventListener('wheel', Wheel, { passive: false });
-    function Wheel(event) {
-      event.preventDefault();
-    }
+
     console.log('runします');
     var textarea = $('.term');
     var typingSpeed = 70; // Typing speed in milliseconds
@@ -622,6 +623,7 @@ function runner() {
         setTimeout(function () { feedbacker(); }, 800);
       }
     }, typingSpeed);
+    
 }
 
 var count = 0;
@@ -655,15 +657,16 @@ function feedbacker() {
       else {
         textarea.append("<span style='color:red'>...Connected!</span><br>");
         setTimeout(function () {
+            $('html, body').animate({ scrollTop: 0 },0);
           $(".load").fadeOut(2200);
 
-
-        }, 500);
+        }, 1100);
+          document.removeEventListener('wheel', Wheel);
+          console.log('スクロールを解除しました');
       }
       
     }, time * scrollSpeed);
 
-      document.removeEventListener('wheel', Wheel);
 }
 
 
