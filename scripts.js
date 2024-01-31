@@ -436,7 +436,7 @@ function updateText(paragraphs, newTextArray) {
 }
 
 // ボタンのクリックイベントリスナーを追加
-if (window.location.pathname.includes("index.html")) {
+if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.includes("novel.html")||!window.location.pathname.includes("works.html")) {
 
   document.getElementById('changeText').addEventListener('click', () => {
     // 文章を切り替える
