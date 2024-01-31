@@ -3,7 +3,7 @@ console.log('Script file executed.'); // 最初の行にこのコードを追加
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Script loaded and ready.');
 
-  if (window.location.pathname.includes("index.html")) {
+  if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.includes("novel.html")||!window.location.pathname.includes("works.html")) {
     const paragraphs = document.querySelectorAll('.novel p');
     const targetElements = document.querySelectorAll('.intro h1');
 
