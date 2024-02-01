@@ -221,6 +221,7 @@ table{
 
   white-space: pre-line;
 }
+
 #honbun p .novel-chapter{
   font-size: 1em;
 }
@@ -232,6 +233,32 @@ table{
   white-space: pre-line;
   margin: 0;
   font-size: 2em;
+  font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;
+}
+#inputText{
+  width: 95%;
+  height: 100%;
+  background-color: white;
+  padding: 70px;
+  position: relative;
+  justify-content: center;
+  writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+  -ms-writing-mode: tb-rl;
+  -moz-writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  -o-writing-mode: vertical-rl;
+  -ms-writing-mode: vertical-rl;
+
+  max-width: 100%;
+  /* 幅の最大値を100%に設定 */
+  overflow-x: scroll;
+  overflow-y: hidden;
+  /* 横方向にスクロールバーを表示するように設定 */
+  
+  line-height: 2.5rem;
+  font-size: 1.25em;
   font-family: 'ヒラギノ明朝 Pro W3', 'Hiragino Mincho Pro', 'HiraMinProN-W3', '游明朝', 'Yu Mincho', '游明朝体', 'YuMincho', 'HGS明朝E', 'HG明朝E', 'ＭＳ 明朝', 'MS Mincho', serif;
 }
 

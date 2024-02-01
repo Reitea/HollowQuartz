@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="icon" href="HollowQuarts.png" type="image/png">
+    <link rel="apple-touch-icon" href="HollowQuarts.png" type="image/png">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css?ver1.06">
+    <link href="https://fonts.googleapis.com/earlyaccess/hannari.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <title>玻璃の虚</title>
+    <header style="cursor: pointer;" id="header-text" onclick="bounceAnimation()">
+
+        <img src="HollowQuarts.png" style="position: relative;z-index: -10;" width="60" height="60">
+        <span>玻</span>
+        <span>璃</span>
+        <span>の</span>
+        <span>虚</span>
+
+        <div class="container">
+            <input type="checkbox" name="navToggle" id="navToggle" class="nav-toggle">
+            <!-- ハンバーガーメニューのアイコン -->
+            <label for="navToggle" class="btn-burger">
+                <div class="icon"></div>
+            </label>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#">Introduction</a></li>
+                    <li><a href="works.html"><div class="here"></div>Works</a></li>
+                    <li><a target="_blank " href="https://twitter.com/EX65002">Twitter</a></li>
+                    <li><a target="_blank " href="https://yoichi-sousaku.booth.pm/">Booth</a></li>
+                    <li><a href="Extra.html">Extra</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </header>
+    <ul class="topic-path">
+        <li><a href="index.html">Introduction</a></li>
+        <li><a href="works.html">Works</a></li>
+        <li><a href="#">Write</a></li>
+    </ul>
+</head>
+
+<body style="height: 100%; position:relative">
+    <main style="height: 100%; position:relative">
+        <div class="work-container">
+            <div class="novel-title">
+                <h1 id = "novel-title">「執筆フォーム」</h1>
+            </div>
+                        <textarea id = "inputText"></textarea>
+
+            <div style="text-align: center; padding: 80px 0px;">
+                <button style="height: 70px;width: 60%; font-size: 1.5rem;" onclick="downloadTextFile()">テキストファイルに保存</button>
+            </div>
+        </div>
+
+    </main>
+
+
+    <footer>
+        <div class="footer-logo"><a href="#">玻璃の虚</a></div>
+        <p style="font-size: 10px;top:15%; position: relative;">©宵地. 2023.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>

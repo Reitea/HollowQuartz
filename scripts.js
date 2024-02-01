@@ -105,13 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if (charNode.textContent.includes("#")) {
             const str_ = charNode.textContent.split("#");
             var str = charNode.textContent.split("#");
-            //console.log(str);
             var Node = document.createTextNode(str[0]);
             text.appendChild(Node);
             var index = 1;
             do {
               var str2 = str_[index]
-              //console.log(str2);
               str = str_[index].split(/\r\n|\r|\n/)[0];
               str2 = str2.replace(str, "");
               Node = document.createTextNode(str);
@@ -533,6 +531,36 @@ if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.
     });
   });
 }
+function downloadTextFile() {
+  // textareaからテキストを取得
+  const textToSave = document.getElementById('inputText').value;
+  // Blobオブジェクトを作成し、テキストデータを格納
+  const blob = new Blob([textToSave], { type: 'text/plain' });
+    // 現在時刻を取得してフォーマット
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+
+    const timestamp = `${year}${month}${day}/${hour}${minute}`;
+  // a要素を作成し、BlobオブジェクトをURLに変換してダウンロードリンクを生成
+  const a = document.createElement('a');
+  const url = window.URL.createObjectURL(blob);
+  a.href = url;
+  a.download = `output_${timestamp}.txt`;
+  console.log(blob)
+
+  // a要素をクリックしてダウンロードを実行
+  document.body.appendChild(a);
+  a.click();
+
+  // 不要な要素を削除してURLオブジェクトを解放
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var moreButtons = document.querySelectorAll(".more");
 
