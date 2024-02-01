@@ -119,14 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
               j_Node.id = str;
               j_Node.className = "novel-chapter";
               j_Node.appendChild(Node);
+              if(str[0]=="!"){
+                j_Node.textContent = "";
+                text.appendChild(j_Node);
+              }else{
               text.appendChild(j_Node);
               text.appendChild(document.createElement("br"));
+              }
               Node = document.createTextNode(str2);
               //console.log(Node.textContent);
               text.appendChild(Node);
               //text.appendChild(Node);
               const chapter = document.createElement("option");
-              chapter.text = str;
+              chapter.text = str.replace("!","");
               chapter.value = str;
               chapterselector.appendChild(chapter);
               index++;
@@ -247,10 +252,12 @@ if (content) {
   // マウスのスクロールイベントを処理する関数
   function handleWheel(event) {
     // マウスのスクロールイベントを検知してX方向にスクロール
+    console.log(content.scrollLeft)
+    console.log()
     if (content.scrollLeft == 0 & event.deltaY < 0) {
     } else if (event.deltaX != 0) {
       content.scrollLeft += event.deltaY;
-    } else {
+    }else {
       event.preventDefault(); // デフォルトのスクロール動作を無効にする
       content.scrollLeft -= event.deltaY;
     }
