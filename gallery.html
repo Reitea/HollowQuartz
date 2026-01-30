@@ -1317,30 +1317,6 @@
                 // event.preventDefault(); // これを有効にするとスクロールが完全に止まるため注意
             }
 
-            // ドラッグ/ピンチ中
-            function doDrag(event) {
-                if (event.touches && event.touches.length === 2) {
-                    // ピンチズーム処理
-                    event.preventDefault();
-                    const currentDistance = getDistance(event.touches);
-                    const diff = currentDistance / lastPinchDistance;
-                    
-                    // ズーム倍率を更新 (感度調整のため 0.1 を掛けるなど適宜)
-                    const zoomStep = (diff - 1) * 0.8; 
-                    zoomModalImage(zoomStep);
-                    
-                    lastPinchDistance = currentDistance;
-                } else if (isDragging) {
-                    // 通常のドラッグ処理
-                    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-                    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-                    imagePosition.x = clientX - dragStart.x;
-                    imagePosition.y = clientY - dragStart.y;
-                    applyZoom();
-                    event.preventDefault();
-                }
-            }
-
             // ダブルタップでズームイン/リセット
             let lastTapTime = 0;
             function handleDoubleTap(event) {
@@ -1437,32 +1413,68 @@
                 
                 event.preventDefault();
             }
+// ドラッグ/ピンチ中
+function doDrag(event) {
+    if (event.touches && event.touches.length === 2) {
+        // ピンチズーム処理
+        event.preventDefault();
+        const currentDistance = getDistance(event.touches);
+        
+        if (lastPinchDistance > 0) {
+            const ratio = currentDistance / lastPinchDistance;
+            const sensitivity = 0.5; // 好みに応じて0.3〜0.8で調整
+            const newZoom = currentZoom * (1 + (ratio - 1) * sensitivity);
+            
+            currentZoom = Math.max(1, Math.min(newZoom, 5));
+            applyZoom();
+        }
+        lastPinchDistance = currentDistance;
+        
+    } else if (isDragging) {
+        // 通常のドラッグまたはスワイプ処理
+        const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+        const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+        
+        imagePosition.x = clientX - dragStart.x;
+        imagePosition.y = clientY - dragStart.y;
+        
+        // 拡大していない時は、横移動を制限して縦スワイプ（閉じ操作）を優先させると操作感が向上します
+        if (currentZoom <= 1.01) {
+            imagePosition.x *= 0.2; // 横にはあまり動かないようにする
+        }
+        
+        applyZoom();
+        event.preventDefault();
+    }
+}
 
-            // ドラッグ中
-            function doDrag(event) {
-                if (!isDragging) return;
-                
-                // マウスとタッチの両方に対応
-                const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-                const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-                
-                imagePosition.x = clientX - dragStart.x;
-                imagePosition.y = clientY - dragStart.y;
-                
-                applyZoom();
-                event.preventDefault();
-            }
+// ドラッグ終了
+function endDrag(event) {
+    if (!isDragging && lastPinchDistance === 0) return;
 
-            // ドラッグ終了
-            function endDrag(event) {
-                if (!isDragging) return;
-                
-                isDragging = false;
-                const wrapper = document.getElementById('modalImageWrapper');
-                wrapper.classList.remove('dragging');
-                
-                event.preventDefault();
-            }
+    const wrapper = document.getElementById('modalImageWrapper');
+
+    // 下スワイプで閉じる判定（倍率がほぼ1倍の時のみ）
+    if (currentZoom <= 1.1) {
+        const dragDistanceY = imagePosition.y;
+        // 150px以上下にスワイプしたら閉じる
+        if (dragDistanceY > 150) {
+            closeModal();
+            return;
+        }
+        
+        // 閉じない場合は中央に戻す（アニメーション付き）
+        wrapper.style.transition = 'transform 0.3s ease-out';
+        imagePosition = { x: 0, y: 0 };
+        applyZoom();
+        setTimeout(() => { wrapper.style.transition = ''; }, 300);
+    }
+
+    isDragging = false;
+    lastPinchDistance = 0; // リセット
+    wrapper.classList.remove('dragging');
+}
+
 
             // モーダルキーボードハンドラー
             function handleModalKeydown(event) {
