@@ -291,7 +291,7 @@ function toggleItems(containerId) {
       li.style.display = 'block';
     } else {
       console.log('hiding item ' + index)
-      if (index > 2)
+      if (index > 3)
         li.style.display = 'none';
     }
   });

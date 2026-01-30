@@ -16,11 +16,17 @@
 <link rel="icon" href="HollowQuarts.png" type="image/png">
 <link rel="apple-touch-icon" href="HollowQuarts.png" type="image/png">
 <html lang="jp">
+
+<div id="loading-overlay">
+  <div id="logo-container"></div>
+</div>
+<!--
 <div class="load">
   <div class="term-wrapper">
     <pre class="term">HollowQuarts@dev:~$</pre>
   </div>
 </div>
+-->
 
 <head>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -124,6 +130,8 @@
           <div class="metacarpal"></div>
         </div>
         <ul>
+          <li>ローディングアニメーションを変更しました。</li>
+          <li>Galleryを実装しました。(2026/01/31)</li>
           <li>小説「<a href="novel.html?title=天使の分け前">天使の分け前</a>」を公開しました。(2026/01/25)</li>
           <li>Introductionに自己紹介、トピックを追記しました。</li>
           <li>Extraに活動場所詳細を追記しました。</li>
@@ -190,5 +198,118 @@
 </footer>
 
 <script src="scripts.js"></script>
+        <!-- モジュラー版 JavaScript の読み込み -->
+    <script type="module">
+        // 読み込み完了後にローディングオーバーレイを非表示
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                if (loadingOverlay) {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 300);
+                }
+            }, 500); // 0.5秒後に非表示（読み込み完了の実感を与える）
+        });
+
+        // モジュール読み込みエラーのハンドリング
+        window.addEventListener('error', (event) => {
+            if (event.filename && event.filename.includes('app-modular.js')) {
+                console.error('モジュラー版の読み込みに失敗しました:', event.message);
+            }
+        });
+
+        // ES6モジュールサポートのチェック
+        if (!window.location.protocol.startsWith('http')) {
+            console.warn('ES6モジュールはHTTPサーバー経由でのみ動作します。ローカルファイルでは動作しません。');
+        }
+        
+fetch('./HollowQuartz.svg')
+  .then(res => res.text())
+  .then(svg => {
+    const container = document.getElementById('logo-container');
+    container.innerHTML = svg;
+    const svgEl = container.querySelector('svg');
+
+    requestAnimationFrame(() => {
+      svgEl.classList.add('animate');
+    });
+  });
+
+const totalAnimationTime = 2500; // アニメーションの総時間（ミリ秒）
+// ページ読み込み完了後にローディングをフェードアウト
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loading-overlay');
+
+  // すでに表示済みならスキップ
+  if (sessionStorage.getItem('loadingShown')) {
+    overlay.style.display = 'none';
+    return;
+  }
+  // 徐々に透明にする
+  setTimeout(() => {
+    overlay.style.transition = 'opacity 1s ease';
+    overlay.style.opacity = '0';
+
+    // トランジションが終わったら非表示にする
+    overlay.addEventListener('transitionend', () => {
+      overlay.style.display = 'none';
+        sessionStorage.setItem('loadingShown', 'true'); // 一度表示したら次回からは表示しない
+    }, { once: true }); // 一回だけ実行
+  }, totalAnimationTime); // アニメーションが終わるまで待つ
+});
+
+
+    </script>
+        <style>
+#loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.97); /* 好きな背景色に変更可 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 既存要素より前面に */
+}
+
+#logo-container svg {
+  width: 32vw; /* ロゴのサイズ調整 */
+  height: 32vw; /* ロゴのサイズ調整 */
+}
+
+#logo-container svg path {
+  stroke: #3498db;
+  stroke-width: 5;
+  fill: none;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 1000;
+}
+
+#logo-container svg.animate path {
+  animation: draw 1.5s ease forwards,
+            stroke-change 1s 1s forwards,
+             fillfade 0.5s 1.5s forwards;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes stroke-change {
+  to { stroke-dasharray: 3000; }
+}
+
+@keyframes fillfade {
+  from { fill: black; fill-opacity: 0; }
+  to   { fill: black; fill-opacity: 1; stroke: black;}
+}
+
+
+
+</style>
 
 </html>
