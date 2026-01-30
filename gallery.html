@@ -318,16 +318,29 @@
             text-align: center;
         }
         
-        /* モーダル画像エリア */
-        .modal-image-container {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+/* モーダル内の画像コンテナ */
+.modal-image-container {
+    touch-action: none; /* ブラウザ標準のズームやスクロールを無効化してJSに任せる */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+#modalImageWrapper {
+    transition: transform 0.1s ease-out; /* ズームを滑らかに */
+    will-change: transform;
+    cursor: grab;
+}
+
+#modalImageWrapper.dragging {
+    cursor: grabbing;
+    transition: none; /* ドラッグ中は追従性を優先してアニメーションをオフに */
+}
+
         
         .modal-image-wrapper {
             position: relative;
@@ -520,6 +533,22 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+        
+/* スマホ用の大きな操作ボタン（オプション） */
+@media (max-width: 768px) {
+    .modal-controls {
+        bottom: 20px;
+        gap: 20px;
+    }
+    /* ズームボタンを大きくして押しやすくする */
+    .zoom-btn {
+        padding: 12px;
+        font-size: 18px;
+    }
+    .modal{
+        padding: 20px;
+    }
+}
     </style>
 </head>
 
@@ -1262,6 +1291,79 @@
                     zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
                 }
             }
+
+                        // ピンチズーム用の変数
+            let lastPinchDistance = 0;
+
+            // 2点間の距離を計算する
+            function getDistance(touches) {
+                return Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+            }
+
+            // ドラッグ/ピンチ開始
+            function startDrag(event) {
+                if (event.touches && event.touches.length === 2) {
+                    // ピンチ操作開始
+                    isDragging = false; // 1本指のドラッグを無効化
+                    lastPinchDistance = getDistance(event.touches);
+                } else {
+                    // 通常のドラッグ開始
+                    isDragging = true;
+                    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+                    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+                    dragStart.x = clientX - imagePosition.x;
+                    dragStart.y = clientY - imagePosition.y;
+                }
+                // event.preventDefault(); // これを有効にするとスクロールが完全に止まるため注意
+            }
+
+            // ドラッグ/ピンチ中
+            function doDrag(event) {
+                if (event.touches && event.touches.length === 2) {
+                    // ピンチズーム処理
+                    event.preventDefault();
+                    const currentDistance = getDistance(event.touches);
+                    const diff = currentDistance / lastPinchDistance;
+                    
+                    // ズーム倍率を更新 (感度調整のため 0.1 を掛けるなど適宜)
+                    const zoomStep = (diff - 1) * 0.8; 
+                    zoomModalImage(zoomStep);
+                    
+                    lastPinchDistance = currentDistance;
+                } else if (isDragging) {
+                    // 通常のドラッグ処理
+                    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+                    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+                    imagePosition.x = clientX - dragStart.x;
+                    imagePosition.y = clientY - dragStart.y;
+                    applyZoom();
+                    event.preventDefault();
+                }
+            }
+
+            // ダブルタップでズームイン/リセット
+            let lastTapTime = 0;
+            function handleDoubleTap(event) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTapTime;
+                if (tapLength < 300 && tapLength > 0) {
+                    event.preventDefault();
+                    if (currentZoom > 1) {
+                        resetModalZoom();
+                    } else {
+                        currentZoom = 2; // 2倍にズーム
+                        applyZoom();
+                    }
+                }
+                lastTapTime = currentTime;
+            }
+
+            // 既存の wrapper へのイベント追加（openModal内などで実行）
+            const wrapper = document.getElementById('modalImageWrapper');
+            wrapper.addEventListener('touchstart', (e) => {
+                handleDoubleTap(e);
+                startDrag(e);
+            }, { passive: false });
 
             // ナビゲーションボタンの状態を更新
             function updateNavigationButtons() {
