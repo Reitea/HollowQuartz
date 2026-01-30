@@ -1300,46 +1300,7 @@
                 return Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
             }
 
-            // ドラッグ/ピンチ開始
-            function startDrag(event) {
-                if (event.touches && event.touches.length === 2) {
-                    // ピンチ操作開始
-                    isDragging = false; // 1本指のドラッグを無効化
-                    lastPinchDistance = getDistance(event.touches);
-                } else {
-                    // 通常のドラッグ開始
-                    isDragging = true;
-                    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-                    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-                    dragStart.x = clientX - imagePosition.x;
-                    dragStart.y = clientY - imagePosition.y;
-                }
-                // event.preventDefault(); // これを有効にするとスクロールが完全に止まるため注意
-            }
 
-            // ダブルタップでズームイン/リセット
-            let lastTapTime = 0;
-            function handleDoubleTap(event) {
-                const currentTime = new Date().getTime();
-                const tapLength = currentTime - lastTapTime;
-                if (tapLength < 300 && tapLength > 0) {
-                    event.preventDefault();
-                    if (currentZoom > 1) {
-                        resetModalZoom();
-                    } else {
-                        currentZoom = 2; // 2倍にズーム
-                        applyZoom();
-                    }
-                }
-                lastTapTime = currentTime;
-            }
-
-            // 既存の wrapper へのイベント追加（openModal内などで実行）
-            const wrapper = document.getElementById('modalImageWrapper');
-            wrapper.addEventListener('touchstart', (e) => {
-                handleDoubleTap(e);
-                startDrag(e);
-            }, { passive: false });
 
             // ナビゲーションボタンの状態を更新
             function updateNavigationButtons() {
@@ -1397,57 +1358,86 @@
                 }
             }
 
-            // ドラッグ開始
-            function startDrag(event) {
-                
-                isDragging = true;
-                const wrapper = document.getElementById('modalImageWrapper');
-                wrapper.classList.add('dragging');
-                
-                // マウスとタッチの両方に対応
-                const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-                const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-                
-                dragStart.x = clientX - imagePosition.x;
-                dragStart.y = clientY - imagePosition.y;
-                
-                event.preventDefault();
+function startDrag(event) {
+    if (event.touches && event.touches.length === 2) {
+        // ピンチ操作開始
+        isDragging = false;
+        lastPinchDistance = getDistance(event.touches);
+        // ★重要：触れた瞬間の倍率を「起点」として保存
+        startZoom = currentZoom; 
+    } else {
+        // 通常のドラッグ開始
+        isDragging = true;
+        const wrapper = document.getElementById('modalImageWrapper');
+        wrapper.classList.add('dragging');
+
+        const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+        const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+        
+        dragStart.x = clientX - imagePosition.x;
+        dragStart.y = clientY - imagePosition.y;
+    }
+}
+
+            // ダブルタップでズームイン/リセット
+            let lastTapTime = 0;
+            function handleDoubleTap(event) {
+                const currentTime = new Date().getTime();
+                const tapLength = currentTime - lastTapTime;
+                if (tapLength < 300 && tapLength > 0) {
+                    event.preventDefault();
+                    if (currentZoom > 1) {
+                        resetModalZoom();
+                    } else {
+                        currentZoom = 2; // 2倍にズーム
+                        applyZoom();
+                    }
+                }
+                lastTapTime = currentTime;
             }
+
+            // 既存の wrapper へのイベント追加（openModal内などで実行）
+            const wrapper = document.getElementById('modalImageWrapper');
+            wrapper.addEventListener('touchstart', (e) => {
+                handleDoubleTap(e);
+                startDrag(e);
+            }, { passive: false });
 // ドラッグ/ピンチ中
 function doDrag(event) {
     if (event.touches && event.touches.length === 2) {
-        // ピンチズーム処理
         event.preventDefault();
         const currentDistance = getDistance(event.touches);
         
         if (lastPinchDistance > 0) {
+            // ★重要：現在の指の距離が「開始時」から何倍になったかを計算
             const ratio = currentDistance / lastPinchDistance;
-            const sensitivity = 0.5; // 好みに応じて0.3〜0.8で調整
-            const newZoom = currentZoom * (1 + (ratio - 1) * sensitivity);
             
+            // 起点となる startZoom に対して倍率を掛ける
+            // これにより、現在の拡大状態からスムーズに継続されます
+            const sensitivity = 0.8; // 好みの感度に調整
+            const newZoom = startZoom * ratio; // 基本はこれだけでOK
+            
+            // 範囲制限
             currentZoom = Math.max(1, Math.min(newZoom, 5));
             applyZoom();
         }
-        lastPinchDistance = currentDistance;
+        // ここでは lastPinchDistance を更新せず、
+        // startDrag時の距離との比率を見続けるのが最も安定します
         
     } else if (isDragging) {
-        // 通常のドラッグまたはスワイプ処理
+        // ...ドラッグ処理は変更なし...
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
-        
         imagePosition.x = clientX - dragStart.x;
         imagePosition.y = clientY - dragStart.y;
         
-        // 拡大していない時は、横移動を制限して縦スワイプ（閉じ操作）を優先させると操作感が向上します
         if (currentZoom <= 1.01) {
-            imagePosition.x *= 0.2; // 横にはあまり動かないようにする
+            imagePosition.x *= 0.2;
         }
-        
         applyZoom();
         event.preventDefault();
     }
 }
-
 // ドラッグ終了
 function endDrag(event) {
     if (!isDragging && lastPinchDistance === 0) return;
