@@ -546,7 +546,7 @@
         font-size: 18px;
     }
     .modal{
-        padding: 50px 25px;
+        padding: 70px 25px;
     }
 }
     </style>
@@ -710,6 +710,8 @@
             const pageNumbers = document.getElementById('pageNumbers');
             const pageNumbersBottom = document.getElementById('pageNumbersBottom');
             const pageSizeSelect = document.getElementById('pageSizeSelect');
+            const lastBtnBottom = document.getElementById('lastBtnBottom');
+            const firstBtnBottom = document.getElementById('firstBtnBottom');
             
             // モーダル要素
             const modal = document.getElementById('imageModal');
@@ -1055,6 +1057,7 @@
                 
                 createPageNumbers(pageNumbers);
                 createPageNumbers(pageNumbersBottom);
+
                 
                 // 前へ/次へボタン
                 const hasPrev = currentPage > 1;
@@ -1533,6 +1536,8 @@ function endDrag(event) {
             nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
             firstBtn.addEventListener('click', () => goToPage(1));
             lastBtn.addEventListener('click', () => goToPage(Math.ceil(filteredImages.length / pageSize)));
+            firstBtnBottom.addEventListener('click', () => goToPage(1));
+            lastBtnBottom.addEventListener('click', () => goToPage(Math.ceil(filteredImages.length / pageSize)));
 
             prevBtnBottom.addEventListener('click', () => goToPage(currentPage - 1));
             nextBtnBottom.addEventListener('click', () => goToPage(currentPage + 1));
