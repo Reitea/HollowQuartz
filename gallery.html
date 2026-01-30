@@ -1451,7 +1451,7 @@
             
             // モーダル関連のイベントリスナー
             closeBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('mousedown', function(e) {
                 if (e.target === modal) closeModal();
             });
 
