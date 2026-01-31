@@ -284,6 +284,8 @@
         .zoom-controls {
             display: flex;
             gap: 5px;
+            align-items: center;
+
         }
         
         .zoom-btn, .nav-btn, .close {
@@ -316,6 +318,7 @@
             font-size: 14px;
             min-width: 50px;
             text-align: center;
+            vertical-align: middle;
         }
         
 /* モーダル内の画像コンテナ */
@@ -548,6 +551,15 @@
     .modal{
         padding: 70px 25px;
     }
+    .modal img{
+        /* 高画質化のポイント：ブラウザの補完アルゴリズムを指定 */
+        image-rendering: -webkit-optimize-contrast; /* Safari (iPhone) でコントラストを維持 */
+        image-rendering: crisp-edges;               /* エッジをシャープに */
+        
+        /* スマホでの表示を滑らかにする */
+        -webkit-backface-visibility: hidden;        /* ズーム時のチラつき防止 */
+        backface-visibility: hidden;
+    }
 }
     </style>
 </head>
@@ -653,7 +665,7 @@
                         <button id="zoomOutBtn" class="zoom-btn" title="縮小">−</button>
                         <span id="zoomLevel" class="zoom-info">100%</span>
                         <button id="zoomInBtn" class="zoom-btn" title="拡大">+</button>
-                        <button id="zoomResetBtn" class="zoom-btn" title="リセット">⌂</button>
+                        <button id="zoomResetBtn" class="zoom-btn" title="リセット">↻</button>
                     </div>
                     <button class="close" title="閉じる">&times;</button>
                 </div>
@@ -1361,94 +1373,83 @@
                 }
             }
 
+// --- ドラッグ開始 (マウス/タッチ共通) ---
 function startDrag(event) {
+    const wrapper = document.getElementById('modalImageWrapper');
+    
     if (event.touches && event.touches.length === 2) {
-        // ピンチ操作開始
+        // 【スマホ】ピンチ操作開始
         isDragging = false;
         lastPinchDistance = getDistance(event.touches);
-        // ★重要：触れた瞬間の倍率を「起点」として保存
         startZoom = currentZoom; 
     } else {
-        // 通常のドラッグ開始
+        // 【PC/スマホ1本指】通常のドラッグ開始
         isDragging = true;
-        const wrapper = document.getElementById('modalImageWrapper');
         wrapper.classList.add('dragging');
 
+        // タッチかマウスかで座標取得を分ける
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
         
         dragStart.x = clientX - imagePosition.x;
         dragStart.y = clientY - imagePosition.y;
+        console.log(`Drag started at (${clientX}, ${clientY})`);
+        // PCでの画像選択（青いハイライト）などを防止
+        if (!event.touches) event.preventDefault();
     }
 }
 
-
-            // 既存の wrapper へのイベント追加（openModal内などで実行）
-            const wrapper = document.getElementById('modalImageWrapper');
-            wrapper.addEventListener('touchstart', (e) => {
-                handleDoubleTap(e);
-                startDrag(e);
-            }, { passive: false });
-// ドラッグ/ピンチ中
+// --- ドラッグ/ピンチ中 ---
 function doDrag(event) {
     if (event.touches && event.touches.length === 2) {
+        // 【スマホ】ピンチズーム処理
         event.preventDefault();
         const currentDistance = getDistance(event.touches);
         
         if (lastPinchDistance > 0) {
-            // ★重要：現在の指の距離が「開始時」から何倍になったかを計算
             const ratio = currentDistance / lastPinchDistance;
-            
-            // 起点となる startZoom に対して倍率を掛ける
-            // これにより、現在の拡大状態からスムーズに継続されます
-            const sensitivity = 0.8; // 好みの感度に調整
-            const newZoom = startZoom * ratio; // 基本はこれだけでOK
-            
-            // 範囲制限
+            const newZoom = startZoom * ratio;
             currentZoom = Math.max(1, Math.min(newZoom, 5));
             applyZoom();
         }
-        // ここでは lastPinchDistance を更新せず、
-        // startDrag時の距離との比率を見続けるのが最も安定します
-        
     } else if (isDragging) {
-        // ...ドラッグ処理は変更なし...
+        // 【PC/スマホ1本指】ドラッグ移動処理
         const clientX = event.touches ? event.touches[0].clientX : event.clientX;
         const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+        
         imagePosition.x = clientX - dragStart.x;
         imagePosition.y = clientY - dragStart.y;
         
+        // 1倍以下の時は移動を制限（遊びを作る場合）
         if (currentZoom <= 1.01) {
-            imagePosition.x *= 0.2;
+            // 必要に応じて制限（ここでは少しだけ動くように調整）
+            // imagePosition.x *= 0.2; 
         }
+        
         applyZoom();
-        event.preventDefault();
+        event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
     }
 }
-// ドラッグ終了
+
+// --- ドラッグ終了 ---
 function endDrag(event) {
     if (!isDragging && lastPinchDistance === 0) return;
 
     const wrapper = document.getElementById('modalImageWrapper');
 
-    // 下スワイプで閉じる判定（倍率がほぼ1倍の時のみ）
-    if (currentZoom <= 1.1) {
+    // 下スワイプで閉じる判定（倍率が1倍に近い時のみ）
+    if (currentZoom <= 1.1 && isDragging) {
         const dragDistanceY = imagePosition.y;
-        // 150px以上下にスワイプしたら閉じる
         if (dragDistanceY > 150) {
             closeModal();
             return;
         }
         
-        // 閉じない場合は中央に戻す（アニメーション付き）
-        wrapper.style.transition = 'transform 0.3s ease-out';
-        imagePosition = { x: 0, y: 0 };
-        applyZoom();
-        setTimeout(() => { wrapper.style.transition = ''; }, 300);
+        // 150px未満なら中央に戻す
     }
 
     isDragging = false;
-    lastPinchDistance = 0; // リセット
+    lastPinchDistance = 0; 
     wrapper.classList.remove('dragging');
 }
 
