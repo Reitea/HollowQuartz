@@ -1273,7 +1273,7 @@
                     document.addEventListener('touchend', endDrag, { passive: false });
                     
                     // ダブルタップ機能も提供
-                    wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
+                    //wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
                 } else {
                     // PC：カスタムズーム機能を有効
                     document.addEventListener('wheel', handleModalWheel, { passive: false });
@@ -1283,7 +1283,7 @@
                     document.addEventListener('mousemove', doDrag);
                     document.addEventListener('mouseup', endDrag);
                 }
-                fitImageToContainer()
+                fitImageToContainer();
             }
 
             // モーダル内容を更新
@@ -1362,7 +1362,7 @@
                     currentZoom = 1;
                     imagePosition = { x: 0, y: 0 };
                     applyZoom();
-                
+                console.log('Image fitted to container');
             }
 
             // 画像サイズ情報を更新
