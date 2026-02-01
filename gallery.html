@@ -342,19 +342,24 @@
 /* スマホ用の設定 */
 @media (max-width: 768px) {
     .modal-image-container {
-        touch-action: pinch-zoom; /* スマホでは標準ピンチズームを許可 */
+        touch-action: pan-x pan-y pinch-zoom; /* パン操作も許可 */
         overflow: auto; /* スクロールも許可 */
     }
     
     /* スマホでは画像に直接ズーム機能を適用 */
     .modal img {
-        touch-action: pinch-zoom;
+        touch-action: pan-x pan-y pinch-zoom;
         user-select: none;
         -webkit-user-select: none;
         max-width: none !important;
         max-height: none !important;
         width: auto;
         height: auto;
+    }
+    
+    /* ラッパーも調整 */
+    #modalImageWrapper {
+        touch-action: pan-x pan-y pinch-zoom;
     }
 }
 
