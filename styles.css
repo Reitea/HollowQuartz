@@ -3666,7 +3666,7 @@ button.more.on-click::after {
   
   .modal-info {
     min-width: auto;
-    padding: 20px;
+    padding: 10px;
   }
   
   .modal-info h2 {
