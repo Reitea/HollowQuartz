@@ -551,19 +551,25 @@
     .modal{
         padding: 70px 25px;
     }
-    .modal img{/* 高画質化：標準の滑らかなレンダリングに戻す */
-        image-rendering: auto; 
+    .modal img {
+        /* 画質劣化の主犯候補をすべてリセット */
+        image-rendering: auto !important;
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
         
-        /* ズーム時のボケを抑えつつ滑らかにする設定 */
-        -webkit-font-smoothing: antialiased;
+        /* transformの基点をリセット */
+        transform-origin: center center;
         
-        /* transformによるボケ防止（ハードウェア加速を適切に利用） */
+        /* 拡大時に低解像度テクスチャに固定されるのを防ぐ */
         will-change: transform;
-        transform: translateZ(0);
-        
-        /* 以前の backface-visibility は削除、または残すなら以下のみ */
-        -webkit-backface-visibility: initial;
-        backface-visibility: initial;
+    }
+
+    /* コンテナ側の制限も緩める */
+    .modal-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* はみ出しはJSのズームで管理 */
     }
 }
     </style>
@@ -1299,13 +1305,15 @@
             }
 
             // ズームを適用
+            // 640行目付近の applyZoom 関数を修正
             function applyZoom() {
                 const wrapper = document.getElementById('modalImageWrapper');
                 if (wrapper) {
-                    wrapper.style.transform = `translate(${imagePosition.x}px, ${imagePosition.y}px) scale(${currentZoom})`;
+                    // translate ではなく translate3d を使用し、Z軸に0を指定する
+                    // これにより、多くのモバイルブラウザで描画品質が維持されます
+                    wrapper.style.transform = `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${currentZoom})`;
                 }
                 
-                // ズーム表示を更新
                 const zoomLevel = document.getElementById('zoomLevel');
                 if (zoomLevel) {
                     zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
