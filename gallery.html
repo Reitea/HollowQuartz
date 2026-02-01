@@ -549,65 +549,25 @@
     .modal{
         padding: 70px 25px;
     }
-    
-    /* スマホでの高品質画像表示設定 */
     .modal img {
-        /* 高品質レンダリングを強制 */
-        image-rendering: -webkit-optimize-contrast !important;
-        image-rendering: crisp-edges !important;
-        image-rendering: pixelated !important;
+        /* 画質劣化の主犯候補をすべてリセット */
         image-rendering: auto !important;
+        -webkit-backface-visibility: visible !important;
+        backface-visibility: visible !important;
         
-        /* GPU加速による品質劣化を防ぐ */
-        -webkit-backface-visibility: hidden !important;
-        backface-visibility: hidden !important;
-        -webkit-perspective: 1000 !important;
-        perspective: 1000 !important;
-        
-        /* transformの基点を最適化 */
+        /* transformの基点をリセット */
         transform-origin: center center;
-        transform-style: preserve-3d;
         
-        /* 高解像度表示のための設定 */
+        /* 拡大時に低解像度テクスチャに固定されるのを防ぐ */
         will-change: transform;
-        -webkit-font-smoothing: subpixel-antialiased;
-        
-        /* スマホでのピンチズーム品質向上 */
-        touch-action: pan-x pan-y pinch-zoom;
-        user-select: none;
-        -webkit-user-select: none;
-        
-        /* 最大サイズ制限を解除 */
-        max-width: none !important;
-        max-height: none !important;
-        width: auto;
-        height: auto;
     }
 
-    /* コンテナ側の設定を最適化 */
+    /* コンテナ側の制限も緩める */
     .modal-image-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
-        
-        /* ハードウェア加速を有効にして品質向上 */
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        will-change: scroll-position;
-    }
-    
-    /* ラッパーの設定も最適化 */
-    #modalImageWrapper {
-        /* 高品質transform設定 */
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        
-        /* スムーズなアニメーション */
-        transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        will-change: transform;
+        overflow: hidden; /* はみ出しはJSのズームで管理 */
     }
 }
     </style>
@@ -1271,9 +1231,6 @@
                 wrapper.addEventListener('touchstart', startDrag, { passive: false });
                 document.addEventListener('touchmove', doDrag, { passive: false });
                 document.addEventListener('touchend', endDrag, { passive: false });
-                
-                // ダブルタップ機能を追加
-                wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
             }
 
             // モーダル内容を更新
@@ -1345,51 +1302,19 @@
                 }
             }
 
-            // ズームを適用（高品質レンダリング対応）
+            // ズームを適用
+            // 640行目付近の applyZoom 関数を修正
             function applyZoom() {
                 const wrapper = document.getElementById('modalImageWrapper');
                 if (wrapper) {
-                    // スマホでの高品質ズームのための最適化されたtransform
-                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    
-                    if (isMobile) {
-                        // モバイルでは高品質レンダリングを優先
-                        wrapper.style.transform = `translate3d(${Math.round(imagePosition.x)}px, ${Math.round(imagePosition.y)}px, 0px) scale(${currentZoom})`;
-                        wrapper.style.transformOrigin = 'center center';
-                        
-                        // 高解像度表示のための追加設定
-                        wrapper.style.webkitTransform = `translate3d(${Math.round(imagePosition.x)}px, ${Math.round(imagePosition.y)}px, 0px) scale(${currentZoom})`;
-                        wrapper.style.webkitTransformOrigin = 'center center';
-                        
-                        // GPU層を強制的に作成して品質向上
-                        wrapper.style.willChange = 'transform';
-                        wrapper.style.backfaceVisibility = 'hidden';
-                        wrapper.style.webkitBackfaceVisibility = 'hidden';
-                    } else {
-                        // PC向けの通常のtransform
-                        wrapper.style.transform = `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${currentZoom})`;
-                    }
+                    // translate ではなく translate3d を使用し、Z軸に0を指定する
+                    // これにより、多くのモバイルブラウザで描画品質が維持されます
+                    wrapper.style.transform = `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${currentZoom})`;
                 }
                 
                 const zoomLevel = document.getElementById('zoomLevel');
                 if (zoomLevel) {
                     zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
-                }
-                
-                // ズームボタンの状態を更新
-                updateZoomButtons();
-            }
-            
-            // ズームボタンの状態更新
-            function updateZoomButtons() {
-                const zoomInBtn = document.getElementById('zoomInBtn');
-                const zoomOutBtn = document.getElementById('zoomOutBtn');
-                
-                if (zoomInBtn) {
-                    zoomInBtn.disabled = currentZoom >= 5;
-                }
-                if (zoomOutBtn) {
-                    zoomOutBtn.disabled = currentZoom <= 0.25;
                 }
             }
 
@@ -1436,38 +1361,10 @@
                 updateModalContent(newImage);
             }
 
-            // ズーム機能（改善版）
-            function zoomModalImage(delta, centerPoint = null) {
-                const oldZoom = currentZoom;
+            // ズーム機能
+            function zoomModalImage(delta) {
                 currentZoom += delta;
                 currentZoom = Math.max(0.25, Math.min(currentZoom, 5)); // 0.25倍から5倍まで
-                
-                // 中心点指定がある場合、その点を中心にズーム
-                if (centerPoint && oldZoom !== currentZoom && oldZoom > 0) {
-                    const container = document.querySelector('.modal-image-container');
-                    const containerRect = container.getBoundingClientRect();
-                    
-                    // マウス位置をコンテナ相対座標に変換
-                    const mouseX = centerPoint.x - containerRect.left;
-                    const mouseY = centerPoint.y - containerRect.top;
-                    
-                    // コンテナの中心座標
-                    const containerCenterX = containerRect.width / 2;
-                    const containerCenterY = containerRect.height / 2;
-                    
-                    // ズーム前のマウス位置（画像座標系）
-                    const beforeX = (mouseX - containerCenterX - imagePosition.x) / oldZoom;
-                    const beforeY = (mouseY - containerCenterY - imagePosition.y) / oldZoom;
-                    
-                    // ズーム後のマウス位置（画像座標系）
-                    const afterX = beforeX * currentZoom;
-                    const afterY = beforeY * currentZoom;
-                    
-                    // 画像位置を調整してマウス位置を維持
-                    imagePosition.x = mouseX - containerCenterX - afterX;
-                    imagePosition.y = mouseY - containerCenterY - afterY;
-                }
-                
                 applyZoom();
             }
 
@@ -1476,80 +1373,26 @@
                 fitImageToContainer(); // 自動フィットに戻す
             }
 
-            // マウスホイールでのズーム（改善版）
+            // マウスホイールでのズーム
             function handleModalWheel(event) {
                 if (modal.style.display === 'flex') {
                     event.preventDefault();
                     
                     // ホイールの方向を判定
                     const delta = event.deltaY > 0 ? -0.1 : 0.1;
-                    
-                    // マウスカーソルの位置を中心にズーム
-                    const centerPoint = {
-                        x: event.clientX,
-                        y: event.clientY
-                    };
-                    
-                    zoomModalImage(delta, centerPoint);
+                    zoomModalImage(delta);
                 }
-            }
-            
-            // ダブルタップでズーム切り替え
-            let lastTapTime = 0;
-            function handleDoubleTap(event) {
-                const currentTime = new Date().getTime();
-                const tapLength = currentTime - lastTapTime;
-                
-                if (tapLength < 500 && tapLength > 0) {
-                    event.preventDefault();
-                    
-                    // タップ位置を中心にズーム切り替え
-                    const centerPoint = {
-                        x: event.touches ? event.touches[0].clientX : event.clientX,
-                        y: event.touches ? event.touches[0].clientY : event.clientY
-                    };
-                    
-                    if (currentZoom > 1.5) {
-                        // ズームアウトしてフィットに戻す
-                        resetModalZoom();
-                    } else {
-                        // 2倍ズームイン
-                        const targetZoom = 2;
-                        const delta = targetZoom - currentZoom;
-                        zoomModalImage(delta, centerPoint);
-                    }
-                }
-                lastTapTime = currentTime;
             }
 
 // --- ドラッグ開始 (マウス/タッチ共通) ---
-let startZoom = 1; // 変数を追加
-let pinchCenter = { x: 0, y: 0 }; // ピンチ中心点
-
 function startDrag(event) {
     const wrapper = document.getElementById('modalImageWrapper');
     
     if (event.touches && event.touches.length === 2) {
         // 【スマホ】ピンチ操作開始
-        event.preventDefault(); // デフォルトのピンチズームを無効化
         isDragging = false;
         lastPinchDistance = getDistance(event.touches);
-        startZoom = currentZoom;
-        
-        // ピンチ開始時の中心点を記録
-        const touch1 = event.touches[0];
-        const touch2 = event.touches[1];
-        pinchCenter = {
-            x: (touch1.clientX + touch2.clientX) / 2,
-            y: (touch1.clientY + touch2.clientY) / 2
-        };
-        
-        // モバイル用高品質設定を即座に適用
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile && wrapper) {
-            wrapper.style.imageRendering = 'crisp-edges';
-            wrapper.style.webkitImageRendering = '-webkit-optimize-contrast';
-        }
+        startZoom = currentZoom; 
     } else {
         // 【PC/スマホ1本指】通常のドラッグ開始
         isDragging = true;
@@ -1561,9 +1404,9 @@ function startDrag(event) {
         
         dragStart.x = clientX - imagePosition.x;
         dragStart.y = clientY - imagePosition.y;
-        
-        // デフォルトの動作を防止
-        event.preventDefault();
+        console.log(`Drag started at (${clientX}, ${clientY})`);
+        // PCでの画像選択（青いハイライト）などを防止
+        if (!event.touches) event.preventDefault();
     }
 }
 
@@ -1577,30 +1420,8 @@ function doDrag(event) {
         if (lastPinchDistance > 0) {
             const ratio = currentDistance / lastPinchDistance;
             const newZoom = startZoom * ratio;
-            // 最小倍率を0.5倍に変更して、より使いやすく
-            currentZoom = Math.max(0.5, Math.min(newZoom, 5));
-            
-            // ピンチズーム中心点の計算（より自然な拡大/縮小）
-            const touch1 = event.touches[0];
-            const touch2 = event.touches[1];
-            const currentCenter = {
-                x: (touch1.clientX + touch2.clientX) / 2,
-                y: (touch1.clientY + touch2.clientY) / 2
-            };
-            
-            // 中心点のずれを補正
-            const deltaX = currentCenter.x - pinchCenter.x;
-            const deltaY = currentCenter.y - pinchCenter.y;
-            imagePosition.x += deltaX * 0.5; // 補正係数で調整
-            imagePosition.y += deltaY * 0.5;
-            
+            currentZoom = Math.max(1, Math.min(newZoom, 5));
             applyZoom();
-            
-            // 高品質レンダリングを維持
-            const wrapper = document.getElementById('modalImageWrapper');
-            if (wrapper) {
-                wrapper.style.imageRendering = 'crisp-edges';
-            }
         }
     } else if (isDragging) {
         // 【PC/スマホ1本指】ドラッグ移動処理
@@ -1610,10 +1431,11 @@ function doDrag(event) {
         imagePosition.x = clientX - dragStart.x;
         imagePosition.y = clientY - dragStart.y;
         
-        // 1倍以下の時でも自由に移動できるように変更
-        // if (currentZoom <= 1.01) {
-        //     // 制限を削除
-        // }
+        // 1倍以下の時は移動を制限（遊びを作る場合）
+        if (currentZoom <= 1.01) {
+            // 必要に応じて制限（ここでは少しだけ動くように調整）
+            // imagePosition.x *= 0.2; 
+        }
         
         applyZoom();
         event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
