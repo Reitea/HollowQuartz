@@ -566,7 +566,12 @@
         bottom: 20px;
         gap: 20px;
     }
-    /* ズームボタンを大きくして押しやすくする */
+    /* スマホではズームボタンを非表示（標準ピンチズームを使用） */
+    .zoom-controls {
+        display: none;
+    }
+    
+    /* ズームボタンを大きくして押しやすくする（PC用のフォールバック） */
     .zoom-btn {
         padding: 12px;
         font-size: 18px;
@@ -1247,18 +1252,23 @@
                 // デバイス判定
                 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                 
+                const wrapper = document.getElementById('modalImageWrapper');
+                
                 if (isMobile) {
-                    // スマホ：標準のピンチズームを使用、カスタムズームは無効
-                    console.log('Mobile device detected: Using native pinch-zoom');
+                    // スマホ：標準のピンチズームを使用 + ドラッグ移動機能
+                    console.log('Mobile device detected: Using native pinch-zoom + custom drag');
                     
-                    // スマホでもダブルタップ機能は提供
-                    const wrapper = document.getElementById('modalImageWrapper');
+                    // タッチドラッグ機能を有効
+                    wrapper.addEventListener('touchstart', startDrag, { passive: false });
+                    document.addEventListener('touchmove', doDrag, { passive: false });
+                    document.addEventListener('touchend', endDrag, { passive: false });
+                    
+                    // ダブルタップ機能も提供
                     wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
                 } else {
                     // PC：カスタムズーム機能を有効
                     document.addEventListener('wheel', handleModalWheel, { passive: false });
                     
-                    const wrapper = document.getElementById('modalImageWrapper');
                     // マウス用ドラッグイベント
                     wrapper.addEventListener('mousedown', startDrag);
                     document.addEventListener('mousemove', doDrag);
