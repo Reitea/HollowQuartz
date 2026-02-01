@@ -28,7 +28,7 @@
             padding: 10px 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            width: 450px;
+            width: 250px;
             font-size: 14px;
             transition: border-color 0.3s;
         }
@@ -37,6 +37,22 @@
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+        }
+
+        /* キャラクター選択コントロール */
+        .character-filter {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            margin: 10px 0;
+        }
+
+        .character-filter label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            white-space: nowrap;
         }
 
         /* ソートコントロールのラッパー */
@@ -55,7 +71,7 @@
         }
 
         /* セレクトボックス本体 */
-        #sortSelect, #pageSizeSelect {
+        #sortSelect, #pageSizeSelect, #characterSelect {
             padding: 8px 12px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -65,7 +81,7 @@
             transition: all 0.3s ease;
         }
 
-        #sortSelect:hover, #pageSizeSelect:hover {
+        #sortSelect:hover, #pageSizeSelect:hover, #characterSelect:hover {
             border-color: #3498db;
         }
         .pagination-info {
@@ -657,16 +673,22 @@
             <!-- コントロール -->
             <div class="gallery-controls">
                 <input type="text" id="searchInput" class="search-box" placeholder="画像名で検索...">
-                    <div class="sort-control">
-                        <label for="sortSelect">並び替え:</label>
-                        <select id="sortSelect">
-                            <option value="nameAsc">名前順 (A-Z)</option>
-                            <option value="nameDesc">名前順 (Z-A)</option>
-                            <option value="dateDesc" selected>更新日が新しい順</option>
-                            <option value="dateAsc">更新日が古い順</option>
-                            <option value="sizeDesc">サイズが大きい順</option>
-                        </select>
-                    </div>
+                <div class="character-filter">
+                    <label for="characterSelect">キャラクター:</label>
+                    <select id="characterSelect">
+                        <option value="">全キャラクター</option>
+                    </select>
+                </div>
+                <div class="sort-control">
+                    <label for="sortSelect">並び替え:</label>
+                    <select id="sortSelect">
+                        <option value="nameAsc">名前順 (A-Z)</option>
+                        <option value="nameDesc">名前順 (Z-A)</option>
+                        <option value="dateDesc" selected>更新日が新しい順</option>
+                        <option value="dateAsc">更新日が古い順</option>
+                        <option value="sizeDesc">サイズが大きい順</option>
+                    </select>
+                </div>
                 <div class="pagination-info">
                     <span id="imageCount">画像を読み込み中...</span>
                 </div>
@@ -756,6 +778,7 @@
             const error = document.getElementById('error');
             const imageCount = document.getElementById('imageCount');
             const searchInput = document.getElementById('searchInput');
+            const characterSelect = document.getElementById('characterSelect');
             const sortSelect = document.getElementById('sortSelect');
             
             // ページネーション要素
@@ -820,6 +843,61 @@
             }, {
                 rootMargin: '50px'
             });
+
+            // キャラクター名を画像ファイル名から抽出する関数
+            function extractCharacterName(fileName) {
+                // 拡張子を除去
+                const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "");
+                
+                // パターン1: "キャラクター名_表情" の形式
+                if (nameWithoutExt.includes('_')) {
+                    const parts = nameWithoutExt.split('_');
+                    
+                    // 特殊な場合（数値やバージョンで始まる場合など）の処理
+                    if (parts[0].match(/^(落書き|謎状況|天使の分け前|木彫りのフクロウ|ドブ|Dress|ナトレーヌ|レプリカ|ドレス|トルドー)/)) {
+                        return parts[0];
+                    }
+                    
+                    // 通常のキャラクター名_表情パターン
+                    return parts[0];
+                }
+                
+                // パターン2: アンダースコアがない場合はそのまま
+                return nameWithoutExt;
+            }
+
+            // キャラクター選択プルダウンを作成する関数（複数画像があるキャラクターのみ）
+            function populateCharacterSelect() {
+                // 全画像からキャラクター名を抽出し、出現回数をカウント
+                const characterCounts = {};
+                
+                allImages.forEach(image => {
+                    const characterName = extractCharacterName(image.displayName);
+                    if (characterName && characterName.trim() !== '') {
+                        characterCounts[characterName] = (characterCounts[characterName] || 0) + 1;
+                    }
+                });
+                
+                // 2つ以上の画像があるキャラクターのみを抽出
+                const multipleImageCharacters = Object.keys(characterCounts)
+                    .filter(character => characterCounts[character] >= 2)
+                    .sort((a, b) => a.localeCompare(b, 'ja'));
+                
+                // プルダウンをクリア
+                characterSelect.innerHTML = '<option value="">全キャラクター</option>';
+                
+                // キャラクター名をオプションとして追加（複数画像があるもののみ）
+                multipleImageCharacters.forEach(character => {
+                    const option = document.createElement('option');
+                    option.value = character;
+                    option.textContent = `${character} (${characterCounts[character]}枚)`;
+                    characterSelect.appendChild(option);
+                });
+                
+                console.log(`複数画像があるキャラクター: ${multipleImageCharacters.length}個を検出しました:`, multipleImageCharacters);
+                console.log('キャラクター別画像数:', characterCounts);
+            }
+
             // 画像のソート処理
             function sortImages() {
                 const sortValue = sortSelect.value;
@@ -896,6 +974,9 @@
                     //filteredImages = [...allImages];
                     currentPage = 1;
                     
+                    // キャラクター選択プルダウンを作成
+                    populateCharacterSelect();
+                    
                     updateImageCount();
                     setupPagination();
                     //displayCurrentPage();
@@ -921,10 +1002,16 @@
                 console.log('フォールバック処理: 固定画像リストを生成中...');
                 
                 // 基本的な画像ファイル名リスト
-                /*
                 const imageFileNames = [
+                    '2025クリスマス_ファリス.webp',
+                    'Dress.webp',
+                    'ドブ三周年半記念イラスト.webp',
                     'トルドー・インラウンズ_ver2.webp',
+                    'ドレス_2026_謹賀新年.webp',
+                    'ナトレーヌ・テーレス.webp',
+                    'ファリス_普段着_上着.webp',
                     'ファリス・バッカス_2025_謹賀新年.webp',
+                    'ファリス・バッカス_2026_謹賀新年.webp',
                     'ファリス・バッカス_v2_ガチ照れ.webp',
                     'ファリス・バッカス_v2_ぶーぶー.webp',
                     'ファリス・バッカス_v2_穏やかな笑顔.webp',
@@ -935,13 +1022,36 @@
                     'ファリス・バッカス_v2_無理した笑い.webp',
                     'ファリス・バッカス_v2_迷い.webp',
                     'ファリス・バッカス_v2.webp',
+                    'ファリス・バッカス_ラフ_アイス.webp',
+                    'ファリス・バッカス_ラフ_にやり.webp',
+                    'ファリス・バッカス_ラフ_ぶーぶー.webp',
+                    'ファリス・バッカス_ラフ_ん～.webp',
+                    'ファリス・バッカス_ラフ_喜び.webp',
+                    'ファリス・バッカス_ラフ_口開け.webp',
+                    'ファリス・バッカス_ラフ.webp',
+                    'ファリス・バッカス_普段着.webp',
+                    'フォルテ_うすら笑い.webp',
                     'フォルテ_驚き.webp',
                     'フォルテ_聞き入る.webp',
                     'フォルテ_呆れ.webp',
                     'フォルテ.webp',
                     'ラルツハイネ・フォーエバン_ver3.webp',
+                    'ルネルト・ヴォ―キンス.webp',
+                    'レプリカ_ver2.webp',
+                    'レプリカ_立ち絵_本.webp',
+                    '一ノ瀬優_ver2.webp',
                     '花柳香澄_ver2.webp',
+                    '花柳香澄.webp',
+                    '郷原伊香理.webp',
+                    '金城かなな_ほ～.webp',
+                    '金城かなな_む～.webp',
                     '金城かなな_高校.webp',
+                    '金城かなな_笑顔.webp',
+                    '金城かなな_平静.webp',
+                    '金城かなな_無理した笑い.webp',
+                    '金城かなな_目逸らし.webp',
+                    '金城かなな.webp',
+                    '金城ドムス_立ち絵.webp',
                     '郡　三春_おひょ～.webp',
                     '郡　三春_こりごりだ～.webp',
                     '郡　三春_チラ見.webp',
@@ -952,7 +1062,9 @@
                     '郡　三春_目晴_戦闘.webp',
                     '郡　三春_目晴.webp',
                     '郡　三春.webp',
-                    '三条深花_2025_謹賀新年.webp',
+                    '三条深花_18.webp',
+                    '三条深花_2026_謹賀新年.webp',
+                    '三条深花_ver2_.webp',
                     '三条深花_ver3.webp',
                     '三条深花_ウインク.webp',
                     '三条深花_ガチ照れ.webp',
@@ -968,9 +1080,11 @@
                     '三条千花_凶悪.webp',
                     '三条千花_笑み.webp',
                     '三条千花_通常.webp',
+                    '三条裕玄_立ち絵.webp',
                     '篠田由香_ver2.webp',
                     '篠田由香_鬱.webp',
                     '篠田由香.webp',
+                    '初鹿美南_立ち絵.webp',
                     '草薙八津次_鋭め.webp',
                     '草薙八津次_上着オフ.webp',
                     '草薙八津次.webp',
@@ -991,6 +1105,7 @@
                     '草薙八津太郎_幼年期_目逸らし.webp',
                     '草薙八津太郎_幼年期.webp',
                     '草薙八津太郎.webp',
+                    '待夜鳥花_落書き.webp',
                     '待夜鳥香_ver2_ちょいラフ.webp',
                     '待夜鳥香_ver2_マチェーテ.webp',
                     '待夜鳥香_ver2_簡易戦闘差分_冷静.webp',
@@ -1000,18 +1115,23 @@
                     '待夜鳥香_和装_ver1.1.webp',
                     '待夜鳥香_和装_角_ver1.1.webp',
                     '待夜鳥香_和装_戦闘_ver1.1.webp',
+                    '待夜鳥香.webp',
+                    '池里善利.webp',
+                    '天使の分け前.webp',
+                    '謎状況.webp',
                     '柏木伯治_ver2.webp',
+                    '本郷文也_ver3_通常.webp',
                     '無衣_ver2_おお.webp',
                     '無衣_ver2_照れ.webp',
                     '無衣_ver2_笑顔.webp',
                     '無衣_ver2.webp',
+                    '無衣_スーツ_クール.webp',
                     '無衣_スーツ_にやけ.webp',
-                    '無衣_スーツ.webp',
                     '無衣.webp',
+                    '面士麗奈.webp',
+                    '木彫りのフクロウ.webp',
                     '落書き_20251026.webp',
-                    '落書き_20251119_2_.webp',
-                    '落書き_20251119_2_カメラ目線_反転.webp',
-                    '落書き_20251119_2_カメラ目線.webp',
+                    '落書き_20251118.webp',
                     '落書き_20251119_2.webp',
                     '落書き_20251119_3.webp',
                     '落書き_20251119.webp',
@@ -1019,22 +1139,22 @@
                     '落書き_20251212.webp',
                     '落書き_20260110_2.webp',
                     '落書き_20260110.webp',
-                    '落書き_20260115 (大).webp',
                     '落書き_20260115.webp',
                     '落書き_20260117.webp',
                     '落書き_20260118.webp',
                     '落書き_20260119.webp',
                     '落書き_20260121.webp',
-                    '落書き_20260122_2.webp',
                     '落書き_20260122.webp',
                     '落書き_20260128_2.webp',
                     '落書き_20260128_3.webp',
                     '落書き_20260128.webp',
                     '落書き_20260129_2.webp',
                     '落書き_20260129.webp',
-                    '落書き_20260130.webp'
+                    '落書き_20260130.webp',
+                    '落書き_20260131_3.webp',
+                    '落書き_20260131_4.webp',
+                    '落書き_20260131.webp'
                 ];
-*/
                 // 画像リスト生成
                 const validImages = [];
 
@@ -1055,6 +1175,9 @@
                 allImages = validImages;
                 filteredImages = [...allImages];
                 currentPage = 1;
+                
+                // キャラクター選択プルダウンを作成
+                populateCharacterSelect();
                 
                 updateImageCount();
                 setupPagination();
@@ -1091,7 +1214,7 @@
                 const totalPages = Math.ceil(filteredImages.length / pageSize);
                 
                 imageCount.textContent = 
-                    `${startIndex}-${endIndex} / ${filteredImages.length}件 (${totalPages}ページ中${currentPage}ページ目)`;
+                    `${startIndex}-${endIndex} / ${filteredImages.length}件 (${currentPage}/${totalPages}ページ目)`;
             }
 
             // ページネーション設定
@@ -1216,17 +1339,30 @@
                     item.style.transition = 'opacity 0.3s ease';
                 });
             }
-            // 検索フィルター
+            // 検索フィルター（検索文字列とキャラクター選択の両方に対応）
             function filterImages() {
                 const searchTerm = searchInput.value.toLowerCase();
+                const selectedCharacter = characterSelect.value;
                 
-                if (searchTerm === '') {
-                    filteredImages = [...allImages];
-                } else {
-                    filteredImages = allImages.filter(image => 
+                // まず全画像から開始
+                let filtered = [...allImages];
+                
+                // 検索文字列でフィルター
+                if (searchTerm !== '') {
+                    filtered = filtered.filter(image =>
                         image.displayName.toLowerCase().includes(searchTerm)
                     );
                 }
+                
+                // キャラクター選択でフィルター
+                if (selectedCharacter !== '') {
+                    filtered = filtered.filter(image => {
+                        const characterName = extractCharacterName(image.displayName);
+                        return characterName === selectedCharacter;
+                    });
+                }
+                
+                filteredImages = filtered;
                 sortImages(); // フィルター後にソートも適用
                 
                 currentPage = 1;
@@ -1618,6 +1754,7 @@ function endDrag(event) {
 
             // イベントリスナー設定
             searchInput.addEventListener('input', debounce(filterImages, 300));
+            characterSelect.addEventListener('change', filterImages);
             sortSelect.addEventListener('change', sortImages);
             
             pageSizeSelect.addEventListener('change', function() {
