@@ -56,6 +56,15 @@
       "created": "2026-01-21T10:02:16.079Z"
     },
     {
+      "filename": "ファリス_普段着_上着.webp",
+      "name": "ファリス_普段着_上着",
+      "path": "images/ファリス_普段着_上着.webp",
+      "extension": "webp",
+      "size": 210988,
+      "modified": "2026-02-01T12:49:30.786Z",
+      "created": "2026-02-01T12:49:28.739Z"
+    },
+    {
       "filename": "ファリス・バッカス_2025_謹賀新年.webp",
       "name": "ファリス・バッカス_2025_謹賀新年",
       "path": "images/ファリス・バッカス_2025_謹賀新年.webp",
@@ -225,6 +234,15 @@
       "size": 216650,
       "modified": "2025-10-03T07:29:24.235Z",
       "created": "2025-10-03T07:24:52.847Z"
+    },
+    {
+      "filename": "ファリス・バッカス_普段着.webp",
+      "name": "ファリス・バッカス_普段着",
+      "path": "images/ファリス・バッカス_普段着.webp",
+      "extension": "webp",
+      "size": 216266,
+      "modified": "2026-02-01T11:36:19.972Z",
+      "created": "2026-02-01T11:36:17.883Z"
     },
     {
       "filename": "フォルテ_うすら笑い.webp",
@@ -1343,7 +1361,7 @@
       "created": "2026-01-31T08:48:04.862Z"
     }
   ],
-  "count": 149,
-  "lastUpdated": "2026-01-31T18:40:28.376Z",
+  "count": 151,
+  "lastUpdated": "2026-02-01T12:51:17.601Z",
   "generatedBy": "generate-image-list.js"
 }
