@@ -323,7 +323,6 @@
         
 /* モーダル内の画像コンテナ */
 .modal-image-container {
-    touch-action: none; /* ブラウザ標準のズームやスクロールを無効化してJSに任せる */
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -331,6 +330,37 @@
     width: 100%;
     height: 100%;
     background: #000;
+}
+
+/* PC用の設定 */
+@media (min-width: 769px) {
+    .modal-image-container {
+        touch-action: none; /* PCではカスタムズームを使用 */
+    }
+}
+
+/* スマホ用の設定 */
+@media (max-width: 768px) {
+    .modal-image-container {
+        touch-action: pan-x pan-y pinch-zoom; /* パン操作も許可 */
+        overflow: auto; /* スクロールも許可 */
+    }
+    
+    /* スマホでは画像に直接ズーム機能を適用 */
+    .modal img {
+        touch-action: pan-x pan-y pinch-zoom;
+        user-select: none;
+        -webkit-user-select: none;
+        max-width: none !important;
+        max-height: none !important;
+        width: auto;
+        height: auto;
+    }
+    
+    /* ラッパーも調整 */
+    #modalImageWrapper {
+        touch-action: pan-x pan-y pinch-zoom;
+    }
 }
 
 #modalImageWrapper {
@@ -541,7 +571,12 @@
         bottom: 20px;
         gap: 20px;
     }
-    /* ズームボタンを大きくして押しやすくする */
+    /* スマホではズームボタンを非表示（標準ピンチズームを使用） */
+    .zoom-controls {
+        display: none;
+    }
+    
+    /* ズームボタンを大きくして押しやすくする（PC用のフォールバック） */
     .zoom-btn {
         padding: 12px;
         font-size: 18px;
@@ -1218,19 +1253,32 @@
                 
                 // イベントリスナーを追加
                 document.addEventListener('keydown', handleModalKeydown);
-                document.addEventListener('wheel', handleModalWheel, { passive: false });
-
                 
-                // ドラッグ用イベントリスナー（マウス）
+                // デバイス判定
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
                 const wrapper = document.getElementById('modalImageWrapper');
-                wrapper.addEventListener('mousedown', startDrag);
-                document.addEventListener('mousemove', doDrag);
-                document.addEventListener('mouseup', endDrag);
                 
-                // ドラッグ用イベントリスナー（タッチ）
-                wrapper.addEventListener('touchstart', startDrag, { passive: false });
-                document.addEventListener('touchmove', doDrag, { passive: false });
-                document.addEventListener('touchend', endDrag, { passive: false });
+                if (isMobile) {
+                    // スマホ：標準のピンチズームを使用 + ドラッグ移動機能
+                    console.log('Mobile device detected: Using native pinch-zoom + custom drag');
+                    
+                    // タッチドラッグ機能を有効
+                    wrapper.addEventListener('touchstart', startDrag, { passive: false });
+                    document.addEventListener('touchmove', doDrag, { passive: false });
+                    document.addEventListener('touchend', endDrag, { passive: false });
+                    
+                    // ダブルタップ機能も提供
+                    wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
+                } else {
+                    // PC：カスタムズーム機能を有効
+                    document.addEventListener('wheel', handleModalWheel, { passive: false });
+                    
+                    // マウス用ドラッグイベント
+                    wrapper.addEventListener('mousedown', startDrag);
+                    document.addEventListener('mousemove', doDrag);
+                    document.addEventListener('mouseup', endDrag);
+                }
             }
 
             // モーダル内容を更新
@@ -1266,32 +1314,51 @@
                 const containerWidth = containerRect.width;
                 const containerHeight = containerRect.height;
                 
+                // デバイス判定
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
                 // 画像の自然なサイズを取得
                 const naturalWidth = modalImage.naturalWidth;
                 const naturalHeight = modalImage.naturalHeight;
                 
                 if (naturalWidth && naturalHeight) {
-                    // アスペクト比を計算
-                    const imageAspect = naturalWidth / naturalHeight;
-                    const containerAspect = containerWidth / containerHeight;
-                    
                     // 既存のフィットクラスを削除
                     modalImage.classList.remove('fit-width', 'fit-height');
                     
-                    // 画像が横長かつコンテナより幅が広い、または画像が縦長の場合
-                    if (imageAspect > containerAspect) {
-                        // 幅基準でフィット
-                        modalImage.classList.add('fit-width');
+                    if (isMobile) {
+                        // スマホ：標準ピンチズーム用に画像サイズを自然なサイズで設定
+                        // アスペクト比を計算
+                        const imageAspect = naturalWidth / naturalHeight;
+                        const containerAspect = containerWidth / containerHeight;
+                        
+                        if (imageAspect > containerAspect) {
+                            // 横長画像は幅基準でフィット
+                            modalImage.style.width = '100%';
+                            modalImage.style.height = 'auto';
+                        } else {
+                            // 縦長画像は高さ基準でフィット
+                            modalImage.style.width = 'auto';
+                            modalImage.style.height = '100%';
+                        }
                     } else {
-                        // 高さ基準でフィット
-                        modalImage.classList.add('fit-height');
+                        // PC：カスタムズーム用の従来の設定
+                        const imageAspect = naturalWidth / naturalHeight;
+                        const containerAspect = containerWidth / containerHeight;
+                        
+                        if (imageAspect > containerAspect) {
+                            modalImage.classList.add('fit-width');
+                        } else {
+                            modalImage.classList.add('fit-height');
+                        }
                     }
                 }
                 
-                // ズームとドラッグ位置をリセット
-                currentZoom = 1;
-                imagePosition = { x: 0, y: 0 };
-                applyZoom();
+                // PCのみズームとドラッグ位置をリセット
+                if (!isMobile) {
+                    currentZoom = 1;
+                    imagePosition = { x: 0, y: 0 };
+                    applyZoom();
+                }
             }
 
             // 画像サイズ情報を更新
@@ -1412,8 +1479,14 @@ function startDrag(event) {
 
 // --- ドラッグ/ピンチ中 ---
 function doDrag(event) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     if (event.touches && event.touches.length === 2) {
-        // 【スマホ】ピンチズーム処理
+        // 【スマホ】2本指ピンチ - 標準ピンチズームに任せる
+        if (isMobile) {
+            return; // 標準処理に委ねる
+        }
+        // PC用の古いピンチ処理（互換性のため残す）
         event.preventDefault();
         const currentDistance = getDistance(event.touches);
         
@@ -1431,14 +1504,18 @@ function doDrag(event) {
         imagePosition.x = clientX - dragStart.x;
         imagePosition.y = clientY - dragStart.y;
         
-        // 1倍以下の時は移動を制限（遊びを作る場合）
-        if (currentZoom <= 1.01) {
-            // 必要に応じて制限（ここでは少しだけ動くように調整）
-            // imagePosition.x *= 0.2; 
+        // PCの場合のみ常にapplyZoom実行
+        if (!isMobile) {
+            applyZoom();
+            event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
+        } else {
+            // スマホでは軽量処理
+            const wrapper = document.getElementById('modalImageWrapper');
+            if (wrapper) {
+                wrapper.style.transform = `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${currentZoom})`;
+            }
+            // event.preventDefaultを避けて標準スクロールと共存
         }
-        
-        applyZoom();
-        event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
     }
 }
 
