@@ -709,8 +709,8 @@
                         <button id="zoomOutBtn" class="zoom-btn" title="縮小">−</button>
                         <span id="zoomLevel" class="zoom-info">100%</span>
                         <button id="zoomInBtn" class="zoom-btn" title="拡大">+</button>
-                        <button id="zoomResetBtn" class="zoom-btn" title="リセット">↻</button>
                     </div>
+                        <button id="zoomResetBtn" class="zoom-btn" title="リセット">↻</button>
                     <button class="close" title="閉じる">&times;</button>
                 </div>
             </div>
@@ -1340,6 +1340,7 @@
                             modalImage.style.width = 'auto';
                             modalImage.style.height = '100%';
                         }
+                        console.log(`Mobile fit applied: imageAspect=${imageAspect}, containerAspect=${containerAspect}`);
                     } else {
                         // PC：カスタムズーム用の従来の設定
                         const imageAspect = naturalWidth / naturalHeight;
@@ -1354,11 +1355,10 @@
                 }
                 
                 // PCのみズームとドラッグ位置をリセット
-                if (!isMobile) {
                     currentZoom = 1;
                     imagePosition = { x: 0, y: 0 };
                     applyZoom();
-                }
+                
             }
 
             // 画像サイズ情報を更新
