@@ -342,24 +342,19 @@
 /* スマホ用の設定 */
 @media (max-width: 768px) {
     .modal-image-container {
-        touch-action: pan-x pan-y pinch-zoom; /* パン操作も許可 */
+        touch-action: pinch-zoom; /* スマホでは標準ピンチズームを許可 */
         overflow: auto; /* スクロールも許可 */
     }
     
     /* スマホでは画像に直接ズーム機能を適用 */
     .modal img {
-        touch-action: pan-x pan-y pinch-zoom;
+        touch-action: pinch-zoom;
         user-select: none;
         -webkit-user-select: none;
         max-width: none !important;
         max-height: none !important;
         width: auto;
         height: auto;
-    }
-    
-    /* ラッパーも調整 */
-    #modalImageWrapper {
-        touch-action: pan-x pan-y pinch-zoom;
     }
 }
 
@@ -571,12 +566,7 @@
         bottom: 20px;
         gap: 20px;
     }
-    /* スマホではズームボタンを非表示（標準ピンチズームを使用） */
-    .zoom-controls {
-        display: none;
-    }
-    
-    /* ズームボタンを大きくして押しやすくする（PC用のフォールバック） */
+    /* ズームボタンを大きくして押しやすくする */
     .zoom-btn {
         padding: 12px;
         font-size: 18px;
@@ -1257,23 +1247,18 @@
                 // デバイス判定
                 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                 
-                const wrapper = document.getElementById('modalImageWrapper');
-                
                 if (isMobile) {
-                    // スマホ：標準のピンチズームを使用 + ドラッグ移動機能
-                    console.log('Mobile device detected: Using native pinch-zoom + custom drag');
+                    // スマホ：標準のピンチズームを使用、カスタムズームは無効
+                    console.log('Mobile device detected: Using native pinch-zoom');
                     
-                    // タッチドラッグ機能を有効
-                    wrapper.addEventListener('touchstart', startDrag, { passive: false });
-                    document.addEventListener('touchmove', doDrag, { passive: false });
-                    document.addEventListener('touchend', endDrag, { passive: false });
-                    
-                    // ダブルタップ機能も提供
+                    // スマホでもダブルタップ機能は提供
+                    const wrapper = document.getElementById('modalImageWrapper');
                     wrapper.addEventListener('touchend', handleDoubleTap, { passive: false });
                 } else {
                     // PC：カスタムズーム機能を有効
                     document.addEventListener('wheel', handleModalWheel, { passive: false });
                     
+                    const wrapper = document.getElementById('modalImageWrapper');
                     // マウス用ドラッグイベント
                     wrapper.addEventListener('mousedown', startDrag);
                     document.addEventListener('mousemove', doDrag);
@@ -1479,14 +1464,8 @@ function startDrag(event) {
 
 // --- ドラッグ/ピンチ中 ---
 function doDrag(event) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
     if (event.touches && event.touches.length === 2) {
-        // 【スマホ】2本指ピンチ - 標準ピンチズームに任せる
-        if (isMobile) {
-            return; // 標準処理に委ねる
-        }
-        // PC用の古いピンチ処理（互換性のため残す）
+        // 【スマホ】ピンチズーム処理
         event.preventDefault();
         const currentDistance = getDistance(event.touches);
         
@@ -1504,18 +1483,14 @@ function doDrag(event) {
         imagePosition.x = clientX - dragStart.x;
         imagePosition.y = clientY - dragStart.y;
         
-        // PCの場合のみ常にapplyZoom実行
-        if (!isMobile) {
-            applyZoom();
-            event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
-        } else {
-            // スマホでは軽量処理
-            const wrapper = document.getElementById('modalImageWrapper');
-            if (wrapper) {
-                wrapper.style.transform = `translate3d(${imagePosition.x}px, ${imagePosition.y}px, 0) scale(${currentZoom})`;
-            }
-            // event.preventDefaultを避けて標準スクロールと共存
+        // 1倍以下の時は移動を制限（遊びを作る場合）
+        if (currentZoom <= 1.01) {
+            // 必要に応じて制限（ここでは少しだけ動くように調整）
+            // imagePosition.x *= 0.2; 
         }
+        
+        applyZoom();
+        event.preventDefault(); // ブラウザのデフォルト動作（画像ドラッグ）を阻止
     }
 }
 
