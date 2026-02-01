@@ -1283,7 +1283,7 @@
                     document.addEventListener('mousemove', doDrag);
                     document.addEventListener('mouseup', endDrag);
                 }
-                fitImageToContainer();
+                fitImageToContainer()
             }
 
             // モーダル内容を更新
@@ -1307,7 +1307,6 @@
 
                 if (modalFileSize) modalFileSize.textContent = `ファイルサイズ: ${image.sizeText}`;
                 if (modalCounter) modalCounter.textContent = `${currentModalIndex + 1} / ${modalImages.length}`;
-                fitImageToContainer()
                 // ナビゲーションボタンの状態更新
                 updateNavigationButtons();
             }
