@@ -20,6 +20,15 @@
       "created": "2025-11-09T18:56:46.716Z"
     },
     {
+      "filename": "エルナス・ワーワテイン_ver2.webp",
+      "name": "エルナス・ワーワテイン_ver2",
+      "path": "images/エルナス・ワーワテイン_ver2.webp",
+      "extension": "webp",
+      "size": 220892,
+      "modified": "2025-11-20T17:55:17.330Z",
+      "created": "2025-11-20T17:08:39.237Z"
+    },
+    {
       "filename": "ドブ三周年半記念イラスト.webp",
       "name": "ドブ三周年半記念イラスト",
       "path": "images/ドブ三周年半記念イラスト.webp",
@@ -1410,12 +1419,21 @@
       "name": "落書き_20260203",
       "path": "images/落書き_20260203.webp",
       "extension": "webp",
-      "size": 165868,
-      "modified": "2026-02-03T17:42:53.059Z",
+      "size": 113342,
+      "modified": "2026-02-03T17:51:21.397Z",
       "created": "2026-02-03T17:38:53.346Z"
+    },
+    {
+      "filename": "落書き_20260204.webp",
+      "name": "落書き_20260204",
+      "path": "images/落書き_20260204.webp",
+      "extension": "webp",
+      "size": 355536,
+      "modified": "2026-02-04T18:59:24.328Z",
+      "created": "2026-02-04T18:59:17.804Z"
     }
   ],
-  "count": 157,
-  "lastUpdated": "2026-02-03T17:43:32.940Z",
+  "count": 159,
+  "lastUpdated": "2026-02-04T19:13:23.169Z",
   "generatedBy": "generate-image-list.js"
 }

@@ -458,6 +458,11 @@ function updateText(paragraphs, newTextArray) {
   });
 }
 
+//初期状態の文章を設定
+currentTextIndex = Math.floor(Math.random() * textData.length);
+console.log('初期文章インデックス:', currentTextIndex);
+updateText(document.querySelectorAll('.novel p'), textData[currentTextIndex]);
+
 // ボタンのクリックイベントリスナーを追加
 if (!window.location.pathname.includes("Extra.html")||!window.location.pathname.includes("novel.html")||!window.location.pathname.includes("works.html")) {
 
