@@ -1082,6 +1082,15 @@
       "created": "2026-01-26T08:42:31.561Z"
     },
     {
+      "filename": "天城雄星.webp",
+      "name": "天城雄星",
+      "path": "images/天城雄星.webp",
+      "extension": "webp",
+      "size": 148716,
+      "modified": "2026-02-10T12:18:06.280Z",
+      "created": "2026-02-10T07:21:31.275Z"
+    },
+    {
       "filename": "謎状況.webp",
       "name": "謎状況",
       "path": "images/謎状況.webp",
@@ -1449,9 +1458,27 @@
       "size": 116346,
       "modified": "2026-02-05T09:55:25.655Z",
       "created": "2026-02-05T09:53:17.511Z"
+    },
+    {
+      "filename": "落書き_20260209.webp",
+      "name": "落書き_20260209",
+      "path": "images/落書き_20260209.webp",
+      "extension": "webp",
+      "size": 214506,
+      "modified": "2026-02-09T19:09:50.256Z",
+      "created": "2026-02-09T19:09:44.914Z"
+    },
+    {
+      "filename": "落書き_20260210.webp",
+      "name": "落書き_20260210",
+      "path": "images/落書き_20260210.webp",
+      "extension": "webp",
+      "size": 263902,
+      "modified": "2026-02-10T16:17:51.513Z",
+      "created": "2026-02-10T16:12:32.094Z"
     }
   ],
-  "count": 161,
-  "lastUpdated": "2026-02-05T17:02:35.872Z",
+  "count": 164,
+  "lastUpdated": "2026-02-10T16:21:06.660Z",
   "generatedBy": "generate-image-list.js"
 }
