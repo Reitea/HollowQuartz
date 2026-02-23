@@ -1118,6 +1118,15 @@
       "created": "2025-09-27T12:42:58.465Z"
     },
     {
+      "filename": "白石御果梨.webp",
+      "name": "白石御果梨",
+      "path": "images/白石御果梨.webp",
+      "extension": "webp",
+      "size": 105918,
+      "modified": "2026-02-23T18:39:51.698Z",
+      "created": "2026-02-23T18:39:45.492Z"
+    },
+    {
       "filename": "本郷文也_ver3_通常.webp",
       "name": "本郷文也_ver3_通常",
       "path": "images/本郷文也_ver3_通常.webp",
@@ -1496,7 +1505,7 @@
       "created": "2026-02-22T15:59:59.771Z"
     }
   ],
-  "count": 166,
-  "lastUpdated": "2026-02-22T19:18:39.334Z",
+  "count": 167,
+  "lastUpdated": "2026-02-23T18:43:40.369Z",
   "generatedBy": "generate-image-list.js"
 }
