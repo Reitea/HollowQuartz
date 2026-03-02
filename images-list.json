@@ -236,6 +236,15 @@
       "created": "2025-10-03T07:24:52.847Z"
     },
     {
+      "filename": "ファリス・バッカス_普段着_v2.webp",
+      "name": "ファリス・バッカス_普段着_v2",
+      "path": "images/ファリス・バッカス_普段着_v2.webp",
+      "extension": "webp",
+      "size": 262246,
+      "modified": "2026-03-02T18:03:37.212Z",
+      "created": "2026-03-02T14:11:02.643Z"
+    },
+    {
       "filename": "ファリス・バッカス_普段着_上着.webp",
       "name": "ファリス・バッカス_普段着_上着",
       "path": "images/ファリス・バッカス_普段着_上着.webp",
@@ -1559,7 +1568,7 @@
       "created": "2026-02-24T17:37:54.001Z"
     }
   ],
-  "count": 173,
-  "lastUpdated": "2026-03-01T18:13:33.069Z",
+  "count": 174,
+  "lastUpdated": "2026-03-02T18:05:15.335Z",
   "generatedBy": "generate-image-list.js"
 }
