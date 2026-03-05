@@ -1028,6 +1028,15 @@
       "created": "2025-11-16T14:22:35.493Z"
     },
     {
+      "filename": "待夜鳥香_ver3.webp",
+      "name": "待夜鳥香_ver3",
+      "path": "images/待夜鳥香_ver3.webp",
+      "extension": "webp",
+      "size": 47510,
+      "modified": "2026-03-05T22:07:32.692Z",
+      "created": "2026-03-05T21:20:50.054Z"
+    },
+    {
       "filename": "待夜鳥香_いたずらな笑み.webp",
       "name": "待夜鳥香_いたずらな笑み",
       "path": "images/待夜鳥香_いたずらな笑み.webp",
@@ -1568,7 +1577,7 @@
       "created": "2026-02-24T17:37:54.001Z"
     }
   ],
-  "count": 174,
-  "lastUpdated": "2026-03-02T18:05:15.335Z",
+  "count": 175,
+  "lastUpdated": "2026-03-05T22:13:05.024Z",
   "generatedBy": "generate-image-list.js"
 }
