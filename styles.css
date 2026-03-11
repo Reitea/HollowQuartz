@@ -515,6 +515,8 @@ header li {
   margin-left: 10%;
   font-size: 5vw;
   font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  overflow: visible;
 }
 
 a {

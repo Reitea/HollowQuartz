@@ -7,7 +7,16 @@
     <link rel="apple-touch-icon" href="HollowQuarts.png" type="image/png">
     <link rel="stylesheet" href="styles.css?ver=1.06">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>玻璃の虚</title>
+    <title>玻璃の虚 | Gallery</title>
+
+    <!-- OGP -->
+    <meta property="og:title" content="玻璃の虚 | Gallery">
+    <meta property="og:description" content="宵地のイラストギャラリーページ。キャラクターイラストを公開中。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://reitea.github.io/gallery.html">
+    <meta property="og:image" content="https://reitea.github.io/HollowQuarts.png">
+    <meta property="og:site_name" content="玻璃の虚">
+    <meta property="og:locale" content="ja_JP">
     
     <style>
         /* ギャラリー専用スタイル */
@@ -346,6 +355,58 @@
     width: 100%;
     height: 100%;
     background: #000;
+    transition: background-color 0.3s ease;
+}
+
+.modal-image-container.bg-white {
+    background: #fff;
+}
+
+/* 背景切り替えボタン */
+.bg-toggle-btn {
+    background: #444;
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.bg-toggle-btn:hover {
+    background: #555;
+}
+
+.bg-toggle-btn.active {
+    background: #e0e0e0;
+    color: #333;
+    border: 1px solid #999;
+}
+
+/* ヘッダーランダム画像 */
+.header-random-image {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 250px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.header-random-image.loaded {
+    opacity: 0.88;
 }
 
 /* PC用の設定 */
@@ -472,18 +533,35 @@
         /* モーダルフッター */
         .modal-footer {
             background: #2d2d2d;
-            padding: 15px 20px;
+            padding: 6px 16px;
             border-top: 1px solid #444;
             color: #ccc;
-            font-size: 14px;
+            font-size: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
+            min-height: 0;
         }
         
         .modal-info {
             display: flex;
-            gap: 5px;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .modal-info span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-info span + span::before {
+            content: ' | ';
+            color: #666;
         }
         
         .modal-counter {
@@ -662,8 +740,9 @@
         <li><a href="#">Gallery</a></li>
     </ul>
     <!-- メインタイトル -->
-    <div class="header">
+    <div class="header" id="gallery-header">
         <p>イラストギャラリー</p>
+        <img id="headerRandomImage" class="header-random-image" src="" alt="">
     </div>
 
     <!-- ギャラリーメインコンテンツ -->
@@ -737,6 +816,7 @@
                         <button id="zoomInBtn" class="zoom-btn" title="拡大">+</button>
                     </div>
                         <button id="zoomResetBtn" class="zoom-btn" title="リセット">↻</button>
+                        <button id="bgToggleBtn" class="bg-toggle-btn" title="背景を白/黒に切り替え">◑</button>
                     <button class="close" title="閉じる">&times;</button>
                 </div>
             </div>
@@ -1381,6 +1461,12 @@
                 
                 updateModalContent(image);
                 
+                // URLパラメータを更新（ブラウザ履歴に追加）
+                const params = new URLSearchParams(window.location.search);
+                params.set('', image.name);
+                const newUrl = window.location.pathname + '?' + params.toString();
+                history.pushState({ imageName: image.name }, '', newUrl);
+                
                 // アニメーション付きで表示
                 modal.style.display = 'flex';
                 modal.classList.remove('closing');
@@ -1566,6 +1652,11 @@
                 
                 const newImage = modalImages[currentModalIndex];
                 updateModalContent(newImage);
+
+                // ナビゲーション時もURLを更新（replaceStateで余分な履歴を積まない）
+                const params = new URLSearchParams(window.location.search);
+                params.set('', newImage.name);
+                history.replaceState({ imageName: newImage.name }, '', window.location.pathname + '?' + params.toString());
             }
 
             // ズーム機能
@@ -1722,6 +1813,14 @@ function endDrag(event) {
                 // アニメーション付きで閉じる
                 modal.classList.remove('opening');
                 modal.classList.add('closing');
+
+                // URLパラメータを削除
+                const params = new URLSearchParams(window.location.search);
+                params.delete('');
+                const cleanUrl = params.toString()
+                    ? window.location.pathname + '?' + params.toString()
+                    : window.location.pathname;
+                history.replaceState(null, '', cleanUrl);
                 
                 // アニメーション完了後にモーダルを非表示
                 setTimeout(() => {
@@ -1791,6 +1890,19 @@ function endDrag(event) {
             if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => zoomModalImage(-0.25));
             if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetModalZoom);
 
+            // 背景色切り替えボタン
+            const bgToggleBtn = document.getElementById('bgToggleBtn');
+            const modalImageContainer = document.querySelector('.modal-image-container');
+            let isBgWhite = false;
+            if (bgToggleBtn && modalImageContainer) {
+                bgToggleBtn.addEventListener('click', () => {
+                    isBgWhite = !isBgWhite;
+                    modalImageContainer.classList.toggle('bg-white', isBgWhite);
+                    bgToggleBtn.classList.toggle('active', isBgWhite);
+                    bgToggleBtn.title = isBgWhite ? '背景を黒に戻す' : '背景を白に切り替え';
+                });
+            }
+
             // ナビゲーションボタン
             const prevImageBtn = document.getElementById('prevImageBtn');
             const nextImageBtn = document.getElementById('nextImageBtn');
@@ -1821,6 +1933,86 @@ function endDrag(event) {
 
             // 初期化
             loadImages();
+
+            // URLパラメータから画像を自動オープン
+            function openImageFromUrl() {
+                const params = new URLSearchParams(window.location.search);
+                const imageName = params.get('');
+                if (!imageName) return;
+
+                // allImagesが読み込まれるまでリトライ
+                function tryOpen() {
+                    if (allImages.length === 0) {
+                        setTimeout(tryOpen, 300);
+                        return;
+                    }
+                    const target = allImages.find(img => img.name === imageName);
+                    if (target) {
+                        // filteredImagesにも含めてからopenModal
+                        if (!filteredImages.find(img => img.name === imageName)) {
+                            filteredImages = [...allImages];
+                        }
+                        openModal(target);
+                    }
+                }
+                tryOpen();
+            }
+            openImageFromUrl();
+
+            // ブラウザの戻るボタンでモーダルを閉じる
+            window.addEventListener('popstate', function(e) {
+                if (modal.style.display === 'flex') {
+                    // closeModalを呼ぶが、URL操作はpopstateに任せる
+                    modal.classList.remove('opening');
+                    modal.classList.add('closing');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        modal.classList.remove('closing');
+                        document.body.style.overflow = '';
+                        document.removeEventListener('keydown', handleModalKeydown);
+                        document.removeEventListener('wheel', handleModalWheel);
+                        const wrapper = document.getElementById('modalImageWrapper');
+                        if (wrapper) {
+                            wrapper.removeEventListener('mousedown', startDrag);
+                            wrapper.removeEventListener('touchstart', startDrag);
+                        }
+                        document.removeEventListener('mousemove', doDrag);
+                        document.removeEventListener('mouseup', endDrag);
+                        document.removeEventListener('touchmove', doDrag);
+                        document.removeEventListener('touchend', endDrag);
+                        isDragging = false;
+                        if (wrapper) wrapper.classList.remove('dragging');
+                    }, 300);
+                }
+            });
+
+            // ヘッダーにランダム画像を表示
+            function showRandomHeaderImage() {
+                // allImagesが読み込まれるまで待つ
+                function tryShowImage() {
+                    if (allImages.length === 0) {
+                        setTimeout(tryShowImage, 500);
+                        return;
+                    }
+                    const randomIndex = Math.floor(Math.random() * allImages.length);
+                    const randomImage = allImages[randomIndex];
+                    const headerImg = document.getElementById('headerRandomImage');
+                    if (headerImg) {
+                        headerImg.src = randomImage.path;
+                        headerImg.alt = randomImage.displayName;
+                        headerImg.onload = function() {
+                            headerImg.classList.add('loaded');
+                        };
+                        headerImg.onerror = function() {
+                            // 読み込み失敗時は別の画像を試す
+                            const fallbackIndex = (randomIndex + 1) % allImages.length;
+                            headerImg.src = allImages[fallbackIndex].path;
+                        };
+                    }
+                }
+                tryShowImage();
+            }
+            showRandomHeaderImage();
         });
     </script>
 </body>
