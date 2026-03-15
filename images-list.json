@@ -1154,6 +1154,15 @@
       "created": "2026-01-26T08:42:31.561Z"
     },
     {
+      "filename": "天城雄星_ver2.webp",
+      "name": "天城雄星_ver2",
+      "path": "images/天城雄星_ver2.webp",
+      "extension": "webp",
+      "size": 189400,
+      "modified": "2026-03-15T05:03:08.151Z",
+      "created": "2026-03-12T18:44:18.690Z"
+    },
+    {
       "filename": "天城雄星.webp",
       "name": "天城雄星",
       "path": "images/天城雄星.webp",
@@ -1595,7 +1604,7 @@
       "created": "2026-02-24T17:37:54.001Z"
     }
   ],
-  "count": 177,
-  "lastUpdated": "2026-03-08T14:04:17.720Z",
+  "count": 178,
+  "lastUpdated": "2026-03-15T05:05:47.802Z",
   "generatedBy": "generate-image-list.js"
 }
