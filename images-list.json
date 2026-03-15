@@ -1602,9 +1602,27 @@
       "size": 344668,
       "modified": "2026-02-24T17:37:57.207Z",
       "created": "2026-02-24T17:37:54.001Z"
+    },
+    {
+      "filename": "落書き_20260315_2.webp",
+      "name": "落書き_20260315_2",
+      "path": "images/落書き_20260315_2.webp",
+      "extension": "webp",
+      "size": 29140,
+      "modified": "2026-03-15T15:33:00.630Z",
+      "created": "2026-03-15T15:32:55.422Z"
+    },
+    {
+      "filename": "落書き_20260315.webp",
+      "name": "落書き_20260315",
+      "path": "images/落書き_20260315.webp",
+      "extension": "webp",
+      "size": 158432,
+      "modified": "2026-03-15T14:59:01.771Z",
+      "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 178,
-  "lastUpdated": "2026-03-15T05:05:47.802Z",
+  "count": 180,
+  "lastUpdated": "2026-03-15T15:34:44.115Z",
   "generatedBy": "generate-image-list.js"
 }
