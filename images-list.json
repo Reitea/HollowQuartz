@@ -758,6 +758,15 @@
       "created": "2025-10-05T17:02:41.520Z"
     },
     {
+      "filename": "篠田由香_ver3.webp",
+      "name": "篠田由香_ver3",
+      "path": "images/篠田由香_ver3.webp",
+      "extension": "webp",
+      "size": 170030,
+      "modified": "2026-04-06T19:52:47.299Z",
+      "created": "2026-04-06T19:46:20.087Z"
+    },
+    {
       "filename": "篠田由香_鬱.webp",
       "name": "篠田由香_鬱",
       "path": "images/篠田由香_鬱.webp",
@@ -1199,6 +1208,15 @@
       "created": "2026-02-25T15:57:44.986Z"
     },
     {
+      "filename": "白石御果梨_ver2.webp",
+      "name": "白石御果梨_ver2",
+      "path": "images/白石御果梨_ver2.webp",
+      "extension": "webp",
+      "size": 205508,
+      "modified": "2026-04-05T06:07:36.622Z",
+      "created": "2026-04-04T11:19:17.825Z"
+    },
+    {
       "filename": "白石御果梨.webp",
       "name": "白石御果梨",
       "path": "images/白石御果梨.webp",
@@ -1622,7 +1640,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 180,
-  "lastUpdated": "2026-03-15T15:34:44.115Z",
+  "count": 182,
+  "lastUpdated": "2026-04-06T19:57:16.682Z",
   "generatedBy": "generate-image-list.js"
 }
