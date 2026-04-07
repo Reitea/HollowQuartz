@@ -758,6 +758,15 @@
       "created": "2025-10-05T17:02:41.520Z"
     },
     {
+      "filename": "篠田由香_ver3_ウィンク.webp",
+      "name": "篠田由香_ver3_ウィンク",
+      "path": "images/篠田由香_ver3_ウィンク.webp",
+      "extension": "webp",
+      "size": 169562,
+      "modified": "2026-04-07T16:31:33.539Z",
+      "created": "2026-04-07T16:31:27.700Z"
+    },
+    {
       "filename": "篠田由香_ver3.webp",
       "name": "篠田由香_ver3",
       "path": "images/篠田由香_ver3.webp",
@@ -1649,7 +1658,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 183,
-  "lastUpdated": "2026-04-07T13:48:50.925Z",
+  "count": 184,
+  "lastUpdated": "2026-04-07T16:33:40.689Z",
   "generatedBy": "generate-image-list.js"
 }
