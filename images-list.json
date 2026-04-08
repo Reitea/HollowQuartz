@@ -830,6 +830,24 @@
       "created": "2025-10-31T11:30:39.279Z"
     },
     {
+      "filename": "草薙八津太郎_ver2_哀愁.webp",
+      "name": "草薙八津太郎_ver2_哀愁",
+      "path": "images/草薙八津太郎_ver2_哀愁.webp",
+      "extension": "webp",
+      "size": 125726,
+      "modified": "2026-04-08T18:45:04.623Z",
+      "created": "2026-04-08T18:44:59.607Z"
+    },
+    {
+      "filename": "草薙八津太郎_ver2.webp",
+      "name": "草薙八津太郎_ver2",
+      "path": "images/草薙八津太郎_ver2.webp",
+      "extension": "webp",
+      "size": 125690,
+      "modified": "2026-04-08T18:18:59.963Z",
+      "created": "2026-04-08T18:18:54.968Z"
+    },
+    {
       "filename": "草薙八津太郎_アイマスク.webp",
       "name": "草薙八津太郎_アイマスク",
       "path": "images/草薙八津太郎_アイマスク.webp",
@@ -1658,7 +1676,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 184,
-  "lastUpdated": "2026-04-07T16:33:40.689Z",
+  "count": 186,
+  "lastUpdated": "2026-04-08T18:57:55.584Z",
   "generatedBy": "generate-image-list.js"
 }
