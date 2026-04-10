@@ -1325,6 +1325,15 @@
       "created": "2025-10-10T12:29:39.345Z"
     },
     {
+      "filename": "無衣_ver3.webp",
+      "name": "無衣_ver3",
+      "path": "images/無衣_ver3.webp",
+      "extension": "webp",
+      "size": 180152,
+      "modified": "2026-04-10T15:12:01.161Z",
+      "created": "2026-04-10T15:09:32.499Z"
+    },
+    {
       "filename": "無衣_スーツ_クール.webp",
       "name": "無衣_スーツ_クール",
       "path": "images/無衣_スーツ_クール.webp",
@@ -1685,7 +1694,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 187,
-  "lastUpdated": "2026-04-10T06:26:56.021Z",
+  "count": 188,
+  "lastUpdated": "2026-04-10T15:42:17.496Z",
   "generatedBy": "generate-image-list.js"
 }
