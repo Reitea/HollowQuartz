@@ -461,6 +461,15 @@
       "created": "2025-10-12T10:12:47.870Z"
     },
     {
+      "filename": "金城かなな_穢れ物語.webp",
+      "name": "金城かなな_穢れ物語",
+      "path": "images/金城かなな_穢れ物語.webp",
+      "extension": "webp",
+      "size": 75730,
+      "modified": "2026-04-09T19:03:08.221Z",
+      "created": "2026-04-09T19:01:23.099Z"
+    },
+    {
       "filename": "金城かなな.webp",
       "name": "金城かなな",
       "path": "images/金城かなな.webp",
@@ -1676,7 +1685,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 186,
-  "lastUpdated": "2026-04-08T18:57:55.584Z",
+  "count": 187,
+  "lastUpdated": "2026-04-10T06:26:56.021Z",
   "generatedBy": "generate-image-list.js"
 }
