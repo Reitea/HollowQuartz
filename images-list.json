@@ -83,6 +83,15 @@
       "created": "2026-01-04T13:24:32.752Z"
     },
     {
+      "filename": "ファリス・バッカス_SD.webp",
+      "name": "ファリス・バッカス_SD",
+      "path": "images/ファリス・バッカス_SD.webp",
+      "extension": "webp",
+      "size": 174864,
+      "modified": "2025-08-03T05:21:50.000Z",
+      "created": "2025-08-03T05:21:42.411Z"
+    },
+    {
       "filename": "ファリス・バッカス_v2_ガチ照れ.webp",
       "name": "ファリス・バッカス_v2_ガチ照れ",
       "path": "images/ファリス・バッカス_v2_ガチ照れ.webp",
@@ -263,6 +272,15 @@
       "created": "2026-02-01T11:36:17.883Z"
     },
     {
+      "filename": "フォルテ_SD.webp",
+      "name": "フォルテ_SD",
+      "path": "images/フォルテ_SD.webp",
+      "extension": "webp",
+      "size": 189308,
+      "modified": "2025-08-03T08:53:12.000Z",
+      "created": "2025-08-03T08:53:02.465Z"
+    },
+    {
       "filename": "フォルテ_うすら笑い.webp",
       "name": "フォルテ_うすら笑い",
       "path": "images/フォルテ_うすら笑い.webp",
@@ -342,6 +360,15 @@
       "size": 196318,
       "modified": "2025-08-13T19:32:00.000Z",
       "created": "2025-09-15T20:08:29.827Z"
+    },
+    {
+      "filename": "レプリカ_SD.webp",
+      "name": "レプリカ_SD",
+      "path": "images/レプリカ_SD.webp",
+      "extension": "webp",
+      "size": 106678,
+      "modified": "2025-08-03T06:55:00.000Z",
+      "created": "2025-08-03T06:53:34.281Z"
     },
     {
       "filename": "レプリカ_ver2.webp",
@@ -594,6 +621,15 @@
       "size": 325420,
       "modified": "2025-12-31T18:44:04.791Z",
       "created": "2025-12-31T18:44:02.674Z"
+    },
+    {
+      "filename": "三条深花_SD.webp",
+      "name": "三条深花_SD",
+      "path": "images/三条深花_SD.webp",
+      "extension": "webp",
+      "size": 181218,
+      "modified": "2025-08-03T03:34:10.000Z",
+      "created": "2025-08-03T03:31:25.467Z"
     },
     {
       "filename": "三条深花_ver2_.webp",
@@ -1253,6 +1289,15 @@
       "created": "2025-11-17T17:45:43.799Z"
     },
     {
+      "filename": "柏木伯治_SD.webp",
+      "name": "柏木伯治_SD",
+      "path": "images/柏木伯治_SD.webp",
+      "extension": "webp",
+      "size": 138206,
+      "modified": "2025-08-03T05:22:52.000Z",
+      "created": "2025-08-03T05:22:43.260Z"
+    },
+    {
       "filename": "柏木伯治_ver2.webp",
       "name": "柏木伯治_ver2",
       "path": "images/柏木伯治_ver2.webp",
@@ -1296,6 +1341,15 @@
       "size": 267364,
       "modified": "2026-02-27T08:32:23.903Z",
       "created": "2026-02-27T08:25:14.950Z"
+    },
+    {
+      "filename": "本郷文也_SD.webp",
+      "name": "本郷文也_SD",
+      "path": "images/本郷文也_SD.webp",
+      "extension": "webp",
+      "size": 152162,
+      "modified": "2025-08-03T05:24:06.000Z",
+      "created": "2025-08-03T05:23:58.784Z"
     },
     {
       "filename": "本郷文也_ver3_通常.webp",
@@ -1712,7 +1766,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 190,
-  "lastUpdated": "2026-04-11T06:49:05.906Z",
+  "count": 196,
+  "lastUpdated": "2026-04-11T12:50:09.974Z",
   "generatedBy": "generate-image-list.js"
 }
