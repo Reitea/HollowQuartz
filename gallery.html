@@ -1005,9 +1005,9 @@
                         case 'nameDesc':
                             return b.displayName.localeCompare(a.displayName, 'ja');
                         case 'dateDesc':
-                            return new Date(b.modified) - new Date(a.modified);
+                            return new Date(b.created) - new Date(a.created);
                         case 'dateAsc':
-                            return new Date(a.modified) - new Date(b.modified);
+                            return new Date(a.created) - new Date(b.created);
                         case 'sizeDesc':
                             return b.size - a.size;
                         default:
@@ -1059,6 +1059,7 @@
                         displayName: img.name,
                         size: img.size,
                         modified: img.modified,
+                        created: img.created,
                         extension: img.extension,
                         sizeText: formatFileSize(img.size)
                     }));
@@ -1263,6 +1264,7 @@
                         displayName: displayName,
                         size: 0, // サイズ不明
                         modified: new Date().toISOString(),
+                        created: new Date().toISOString(),
                         extension: fileName.split('.').pop(),
                         sizeText: '不明'
                     });

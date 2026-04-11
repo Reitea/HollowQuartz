@@ -1,0 +1,12 @@
+{
+  "name": "hollowquartz",
+  "private": true,
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "recompress:webp": "node recompress-webp.js"
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
+  }
+}
