@@ -1181,6 +1181,24 @@
       "created": "2026-01-25T07:25:11.792Z"
     },
     {
+      "filename": "待夜鳥香_禊_エンドスチル風.webp",
+      "name": "待夜鳥香_禊_エンドスチル風",
+      "path": "images/待夜鳥香_禊_エンドスチル風.webp",
+      "extension": "webp",
+      "size": 254664,
+      "modified": "2026-04-11T06:39:06.849Z",
+      "created": "2026-04-11T06:39:02.802Z"
+    },
+    {
+      "filename": "待夜鳥香_禊_サムネイル.webp",
+      "name": "待夜鳥香_禊_サムネイル",
+      "path": "images/待夜鳥香_禊_サムネイル.webp",
+      "extension": "webp",
+      "size": 364172,
+      "modified": "2026-04-11T06:47:00.366Z",
+      "created": "2026-04-11T05:48:21.082Z"
+    },
+    {
       "filename": "待夜鳥香.webp",
       "name": "待夜鳥香",
       "path": "images/待夜鳥香.webp",
@@ -1694,7 +1712,7 @@
       "created": "2026-03-15T14:58:58.565Z"
     }
   ],
-  "count": 188,
-  "lastUpdated": "2026-04-10T15:42:17.496Z",
+  "count": 190,
+  "lastUpdated": "2026-04-11T06:49:05.906Z",
   "generatedBy": "generate-image-list.js"
 }
