@@ -106,12 +106,14 @@ async function recompress() {
         const originalSize = file.size;
         const filePath = file.filePath;
         const fileName = file.fileName;
+        const originalStat = fs.statSync(filePath);
 
         let bestBuffer = null;
         let bestQuality = null;
 
         for (const currentQuality of qualitySteps) {
             const buffer = await sharp(filePath)
+                .withMetadata()
                 .webp({ quality: currentQuality })
                 .toBuffer();
 
@@ -145,21 +147,20 @@ async function recompress() {
             continue;
         }
 
-        const backupPath = `${filePath}.bak`;
-        if (fs.existsSync(backupPath)) {
-            fs.unlinkSync(backupPath);
-        }
-
-        fs.renameSync(filePath, backupPath);
+        const originalBuffer = fs.readFileSync(filePath);
 
         try {
             fs.writeFileSync(filePath, bestBuffer);
-            fs.unlinkSync(backupPath);
+            fs.utimesSync(filePath, originalStat.atime, originalStat.mtime);
             updated += 1;
             console.log(`OK ${fileName} (${originalSize} -> ${bestBuffer.length}, q${bestQuality})`);
         } catch (error) {
-            if (fs.existsSync(backupPath)) {
-                fs.renameSync(backupPath, filePath);
+            try {
+                // Roll back content and timestamps on write failure.
+                fs.writeFileSync(filePath, originalBuffer);
+                fs.utimesSync(filePath, originalStat.atime, originalStat.mtime);
+            } catch (restoreError) {
+                console.error(`WARN ${fileName} rollback failed (${restoreError.message})`);
             }
             failed += 1;
             console.error(`FAIL ${fileName} (${error.message})`);
