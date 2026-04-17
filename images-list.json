@@ -1800,9 +1800,18 @@
       "size": 67098,
       "modified": "2026-04-16T13:51:34.379Z",
       "created": "2026-04-16T13:51:29.979Z"
+    },
+    {
+      "filename": "落書き_20260417.webp",
+      "name": "落書き_20260417",
+      "path": "images/落書き_20260417.webp",
+      "extension": "webp",
+      "size": 245274,
+      "modified": "2026-04-17T14:57:54.966Z",
+      "created": "2026-04-17T14:57:49.004Z"
     }
   ],
-  "count": 200,
-  "lastUpdated": "2026-04-16T13:53:13.563Z",
+  "count": 201,
+  "lastUpdated": "2026-04-17T14:58:22.782Z",
   "generatedBy": "generate-image-list.js"
 }
