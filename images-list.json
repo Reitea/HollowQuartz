@@ -353,6 +353,15 @@
       "created": "2026-02-26T13:38:20.348Z"
     },
     {
+      "filename": "ララトリス・パスウィスト_ver2.webp",
+      "name": "ララトリス・パスウィスト_ver2",
+      "path": "images/ララトリス・パスウィスト_ver2.webp",
+      "extension": "webp",
+      "size": 238166,
+      "modified": "2026-04-18T16:30:16.003Z",
+      "created": "2026-04-18T16:30:13.954Z"
+    },
+    {
       "filename": "ララトリス・パスウィスト.webp",
       "name": "ララトリス・パスウィスト",
       "path": "images/ララトリス・パスウィスト.webp",
@@ -1827,9 +1836,18 @@
       "size": 245274,
       "modified": "2026-04-17T14:57:54.966Z",
       "created": "2026-04-17T14:57:49.004Z"
+    },
+    {
+      "filename": "落書き_20260419.webp",
+      "name": "落書き_20260419",
+      "path": "images/落書き_20260419.webp",
+      "extension": "webp",
+      "size": 36984,
+      "modified": "2026-04-19T17:19:15.080Z",
+      "created": "2026-04-19T17:19:10.298Z"
     }
   ],
-  "count": 203,
-  "lastUpdated": "2026-04-17T16:25:41.189Z",
+  "count": 205,
+  "lastUpdated": "2026-04-19T17:59:45.421Z",
   "generatedBy": "generate-image-list.js"
 }
