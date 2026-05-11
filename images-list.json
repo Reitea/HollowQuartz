@@ -38,6 +38,15 @@
       "created": "2026-02-22T15:59:20.505Z"
     },
     {
+      "filename": "カストレ・ハレンシュトルム_ver2.webp",
+      "name": "カストレ・ハレンシュトルム_ver2",
+      "path": "images/カストレ・ハレンシュトルム_ver2.webp",
+      "extension": "webp",
+      "size": 194168,
+      "modified": "2026-05-11T14:07:51.317Z",
+      "created": "2026-05-11T18:00:03.599Z"
+    },
+    {
       "filename": "ドブ三周年半記念イラスト.webp",
       "name": "ドブ三周年半記念イラスト",
       "path": "images/ドブ三周年半記念イラスト.webp",
@@ -873,6 +882,15 @@
       "size": 326300,
       "modified": "2025-05-19T14:59:20.000Z",
       "created": "2025-05-19T14:59:13.220Z"
+    },
+    {
+      "filename": "出雲雪慈_ver2.webp",
+      "name": "出雲雪慈_ver2",
+      "path": "images/出雲雪慈_ver2.webp",
+      "extension": "webp",
+      "size": 139822,
+      "modified": "2026-05-11T08:00:32.684Z",
+      "created": "2026-05-11T18:00:00.179Z"
     },
     {
       "filename": "初鹿美南_立ち絵.webp",
@@ -1892,7 +1910,7 @@
       "created": "2026-04-24T14:01:10.220Z"
     }
   ],
-  "count": 210,
-  "lastUpdated": "2026-04-24T14:02:31.818Z",
+  "count": 212,
+  "lastUpdated": "2026-05-11T18:00:37.114Z",
   "generatedBy": "generate-image-list.js"
 }
