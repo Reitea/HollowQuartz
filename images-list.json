@@ -902,6 +902,15 @@
       "created": "2026-05-11T18:00:00.179Z"
     },
     {
+      "filename": "初鹿美南_ver2.webp",
+      "name": "初鹿美南_ver2",
+      "path": "images/初鹿美南_ver2.webp",
+      "extension": "webp",
+      "size": 140862,
+      "modified": "2026-06-16T13:23:13.630Z",
+      "created": "2026-06-16T13:18:09.485Z"
+    },
+    {
       "filename": "初鹿美南_立ち絵.webp",
       "name": "初鹿美南_立ち絵",
       "path": "images/初鹿美南_立ち絵.webp",
@@ -2034,9 +2043,45 @@
       "size": 61010,
       "modified": "2026-06-09T08:55:25.401Z",
       "created": "2026-06-09T08:55:24.265Z"
+    },
+    {
+      "filename": "落書き_20260612_かなな.webp",
+      "name": "落書き_20260612_かなな",
+      "path": "images/落書き_20260612_かなな.webp",
+      "extension": "webp",
+      "size": 53690,
+      "modified": "2026-06-12T19:18:11.107Z",
+      "created": "2026-06-12T19:18:09.963Z"
+    },
+    {
+      "filename": "落書き_20260612_ドレス2.webp",
+      "name": "落書き_20260612_ドレス2",
+      "path": "images/落書き_20260612_ドレス2.webp",
+      "extension": "webp",
+      "size": 91670,
+      "modified": "2026-06-12T19:57:37.540Z",
+      "created": "2026-06-12T19:57:36.374Z"
+    },
+    {
+      "filename": "落書き_20260612_花柳.webp",
+      "name": "落書き_20260612_花柳",
+      "path": "images/落書き_20260612_花柳.webp",
+      "extension": "webp",
+      "size": 123976,
+      "modified": "2026-06-12T18:43:00.433Z",
+      "created": "2026-06-12T18:42:58.780Z"
+    },
+    {
+      "filename": "落書き_20260612_草薙.webp",
+      "name": "落書き_20260612_草薙",
+      "path": "images/落書き_20260612_草薙.webp",
+      "extension": "webp",
+      "size": 167750,
+      "modified": "2026-06-12T18:43:15.809Z",
+      "created": "2026-06-12T18:43:14.298Z"
     }
   ],
-  "count": 226,
-  "lastUpdated": "2026-06-11T06:48:04.569Z",
+  "count": 231,
+  "lastUpdated": "2026-06-16T14:14:51.688Z",
   "generatedBy": "generate-image-list.js"
 }
