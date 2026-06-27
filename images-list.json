@@ -452,6 +452,15 @@
       "created": "2026-01-08T14:06:01.225Z"
     },
     {
+      "filename": "花柳香澄_ver3.webp",
+      "name": "花柳香澄_ver3",
+      "path": "images/花柳香澄_ver3.webp",
+      "extension": "webp",
+      "size": 145076,
+      "modified": "2026-06-27T12:26:59.904Z",
+      "created": "2026-06-27T11:08:16.825Z"
+    },
+    {
       "filename": "花柳香澄.webp",
       "name": "花柳香澄",
       "path": "images/花柳香澄.webp",
@@ -2124,9 +2133,27 @@
       "size": 64502,
       "modified": "2026-06-24T09:57:35.401Z",
       "created": "2026-06-24T09:57:34.030Z"
+    },
+    {
+      "filename": "落書き_20260625_初鹿.webp",
+      "name": "落書き_20260625_初鹿",
+      "path": "images/落書き_20260625_初鹿.webp",
+      "extension": "webp",
+      "size": 120500,
+      "modified": "2026-06-25T07:09:49.438Z",
+      "created": "2026-06-25T07:09:47.730Z"
+    },
+    {
+      "filename": "落書き_20260627_畔柳.webp",
+      "name": "落書き_20260627_畔柳",
+      "path": "images/落書き_20260627_畔柳.webp",
+      "extension": "webp",
+      "size": 146338,
+      "modified": "2026-06-27T20:26:13.228Z",
+      "created": "2026-06-27T20:26:11.610Z"
     }
   ],
-  "count": 236,
-  "lastUpdated": "2026-06-24T11:09:36.708Z",
+  "count": 239,
+  "lastUpdated": "2026-06-27T20:46:46.500Z",
   "generatedBy": "generate-image-list.js"
 }
