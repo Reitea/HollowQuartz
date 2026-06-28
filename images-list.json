@@ -479,6 +479,24 @@
       "created": "2024-12-10T15:48:09.361Z"
     },
     {
+      "filename": "金城かなな_ver3_真剣.webp",
+      "name": "金城かなな_ver3_真剣",
+      "path": "images/金城かなな_ver3_真剣.webp",
+      "extension": "webp",
+      "size": 105570,
+      "modified": "2026-06-28T12:34:53.487Z",
+      "created": "2026-06-28T11:48:31.918Z"
+    },
+    {
+      "filename": "金城かなな_ver3.webp",
+      "name": "金城かなな_ver3",
+      "path": "images/金城かなな_ver3.webp",
+      "extension": "webp",
+      "size": 106332,
+      "modified": "2026-06-28T12:34:21.561Z",
+      "created": "2026-06-28T11:07:48.859Z"
+    },
+    {
       "filename": "金城かなな_ほ～.webp",
       "name": "金城かなな_ほ～",
       "path": "images/金城かなな_ほ～.webp",
@@ -1343,6 +1361,15 @@
       "created": "2025-09-17T16:12:02.419Z"
     },
     {
+      "filename": "探索者一覧_20260628.webp",
+      "name": "探索者一覧_20260628",
+      "path": "images/探索者一覧_20260628.webp",
+      "extension": "webp",
+      "size": 0,
+      "modified": "2026-06-28T12:23:16.173Z",
+      "created": "2026-06-28T12:23:16.173Z"
+    },
+    {
       "filename": "池里善利.webp",
       "name": "池里善利",
       "path": "images/池里善利.webp",
@@ -2153,7 +2180,7 @@
       "created": "2026-06-27T20:26:11.610Z"
     }
   ],
-  "count": 239,
-  "lastUpdated": "2026-06-27T20:46:46.500Z",
+  "count": 242,
+  "lastUpdated": "2026-06-28T12:37:06.694Z",
   "generatedBy": "generate-image-list.js"
 }
