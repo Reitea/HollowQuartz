@@ -938,6 +938,15 @@
       "created": "2026-05-11T18:00:00.179Z"
     },
     {
+      "filename": "初鹿美南_ver2_笑顔.webp",
+      "name": "初鹿美南_ver2_笑顔",
+      "path": "images/初鹿美南_ver2_笑顔.webp",
+      "extension": "webp",
+      "size": 141118,
+      "modified": "2026-07-12T06:02:31.262Z",
+      "created": "2026-07-12T06:02:29.572Z"
+    },
+    {
       "filename": "初鹿美南_ver2.webp",
       "name": "初鹿美南_ver2",
       "path": "images/初鹿美南_ver2.webp",
@@ -2205,9 +2214,18 @@
       "size": 86066,
       "modified": "2026-07-10T11:40:23.056Z",
       "created": "2026-07-10T11:40:17.155Z"
+    },
+    {
+      "filename": "落書き_20260712_初鹿.webp",
+      "name": "落書き_20260712_初鹿",
+      "path": "images/落書き_20260712_初鹿.webp",
+      "extension": "webp",
+      "size": 222726,
+      "modified": "2026-07-12T07:23:34.321Z",
+      "created": "2026-07-12T07:21:49.202Z"
     }
   ],
-  "count": 245,
-  "lastUpdated": "2026-07-10T12:19:35.501Z",
+  "count": 247,
+  "lastUpdated": "2026-07-12T09:46:09.532Z",
   "generatedBy": "generate-image-list.js"
 }
