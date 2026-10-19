@@ -119,6 +119,15 @@
       "created": "2026-01-05T09:43:08.191Z"
     },
     {
+      "filename": "ナトレーヌ・テーレス_ver2.webp",
+      "name": "ナトレーヌ・テーレス_ver2",
+      "path": "images/ナトレーヌ・テーレス_ver2.webp",
+      "extension": "webp",
+      "size": 244018,
+      "modified": "2026-10-12T18:09:37.550Z",
+      "created": "2026-10-12T18:09:08.483Z"
+    },
+    {
       "filename": "ナトレーヌ・テーレス.webp",
       "name": "ナトレーヌ・テーレス",
       "path": "images/ナトレーヌ・テーレス.webp",
@@ -1073,6 +1082,15 @@
       "created": "2026-04-08T18:18:54.968Z"
     },
     {
+      "filename": "草薙八津太郎_ver3.webp",
+      "name": "草薙八津太郎_ver3",
+      "path": "images/草薙八津太郎_ver3.webp",
+      "extension": "webp",
+      "size": 135502,
+      "modified": "2026-10-02T20:04:42.267Z",
+      "created": "2026-10-02T19:58:47.842Z"
+    },
+    {
       "filename": "草薙八津太郎_アイマスク.webp",
       "name": "草薙八津太郎_アイマスク",
       "path": "images/草薙八津太郎_アイマスク.webp",
@@ -1242,6 +1260,15 @@
       "size": 127744,
       "modified": "2026-07-23T09:46:33.729Z",
       "created": "2026-07-23T09:46:31.920Z"
+    },
+    {
+      "filename": "待夜_畔柳GIF.gif",
+      "name": "待夜_畔柳GIF",
+      "path": "images/待夜_畔柳GIF.gif",
+      "extension": "gif",
+      "size": 230666,
+      "modified": "2026-10-05T18:38:42.067Z",
+      "created": "2026-10-19T17:07:30.326Z"
     },
     {
       "filename": "待夜.webp",
@@ -1539,6 +1566,15 @@
       "size": 1147828,
       "modified": "2026-07-12T20:05:18.077Z",
       "created": "2026-07-12T20:04:26.131Z"
+    },
+    {
+      "filename": "洞木恭一.webp",
+      "name": "洞木恭一",
+      "path": "images/洞木恭一.webp",
+      "extension": "webp",
+      "size": 135054,
+      "modified": "2026-09-29T05:22:49.600Z",
+      "created": "2026-09-29T05:22:47.419Z"
     },
     {
       "filename": "謎状況.webp",
@@ -2441,7 +2477,7 @@
       "created": "2026-09-02T13:59:01.327Z"
     }
   ],
-  "count": 271,
-  "lastUpdated": "2026-09-25T07:18:21.953Z",
+  "count": 275,
+  "lastUpdated": "2026-10-19T17:08:34.208Z",
   "generatedBy": "generate-image-list.js"
 }
