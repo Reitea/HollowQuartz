@@ -47,6 +47,15 @@
       "created": "2026-04-12T21:02:28.836Z"
     },
     {
+      "filename": "うずぶちの子還り.webp",
+      "name": "うずぶちの子還り",
+      "path": "images/うずぶちの子還り.webp",
+      "extension": "webp",
+      "size": 388866,
+      "modified": "2026-10-22T17:16:07.132Z",
+      "created": "2026-10-22T17:16:02.670Z"
+    },
+    {
       "filename": "エルナス・ワーワテイン_ver2.webp",
       "name": "エルナス・ワーワテイン_ver2",
       "path": "images/エルナス・ワーワテイン_ver2.webp",
@@ -2477,7 +2486,7 @@
       "created": "2026-09-02T13:59:01.327Z"
     }
   ],
-  "count": 275,
-  "lastUpdated": "2026-10-19T17:08:34.208Z",
+  "count": 276,
+  "lastUpdated": "2026-10-23T07:30:59.278Z",
   "generatedBy": "generate-image-list.js"
 }
